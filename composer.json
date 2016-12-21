@@ -1,0 +1,34 @@
+{
+  "name": "pbweb/audit-bundle",
+  "type": "symfony-bundle",
+  "description": "PB Web Media Audit Bundle for Symfony",
+  "keywords": [
+    "audit",
+    "bundle",
+    "symfony"
+  ],
+  "license": "MIT",
+  "require": {
+    "php": "^7.0",
+    "psr/log": "^1.0",
+    "symfony/symfony": "^3.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.6",
+    "doctrine/orm": "^2.5",
+    "mockery/mockery": "^0.9.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pbweb\\": "src/Pbweb"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "suggest": {
+    "doctrine/orm": "For writing the audit log to the database"
+  }
+}

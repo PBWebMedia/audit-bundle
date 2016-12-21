@@ -1,0 +1,22 @@
+services:
+    pbweb_audit.event_appender.user:
+        class: Pbweb\AuditBundle\Service\EventAppender\UserEventAppender
+        arguments:
+            - "@security.token_storage"
+        tags:
+            - { name: kernel.event_subscriber}
+
+    pbweb_audit.event_appender.impersonating_user:
+        class: Pbweb\AuditBundle\Service\EventAppender\ImpersonatingUserEventAppender
+        arguments:
+            - "@security.token_storage"
+            - "@security.authorization_checker"
+        tags:
+            - { name: kernel.event_subscriber}
+
+    pbweb_audit.event_appender.ip:
+        class: Pbweb\AuditBundle\Service\EventAppender\IpEventAppender
+        arguments:
+            - "@request_stack"
+        tags:
+            - { name: kernel.event_subscriber}

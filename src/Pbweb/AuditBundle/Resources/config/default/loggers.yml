@@ -1,0 +1,7 @@
+services:
+    pbweb_audit.loggers.psr:
+        class: Pbweb\AuditBundle\Service\Logger\PsrLogger
+        arguments:
+            - "@logger"
+        tags:
+            - { name: kernel.event_subscriber}

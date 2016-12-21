@@ -1,0 +1,5 @@
+services:
+    pbweb_audit.audit_log:
+        class: Pbweb\AuditBundle\Service\AuditLog
+        arguments:
+            - "@event_dispatcher"
