@@ -15,14 +15,21 @@ class DoctrineEntityEventListener
 {
     /** @var AuditLog */
     protected $log;
+    /** @var string */
+    private $logEntityFqdn;
 
-    public function __construct(AuditLog $log)
+    public function __construct(AuditLog $log, string $logEntityFqdn = '')
     {
         $this->log = $log;
+        $this->logEntityFqdn = $logEntityFqdn;
     }
 
     public function postPersist(LifecycleEventArgs $args)
     {
+        if($this->isAuditLogEntity($args)) {
+            return;
+        }
+
         $event = new AuditEvent('pbweb_audit.entity_insert');
         $event->setDescription('inserted ' . get_class($args->getEntity()));
         $event->setChangeSet($this->getChangeSet($args));
@@ -32,6 +39,10 @@ class DoctrineEntityEventListener
 
     public function postUpdate(LifecycleEventArgs $args)
     {
+        if($this->isAuditLogEntity($args)) {
+            return;
+        }
+
         $event = new AuditEvent('pbweb_audit.entity_update');
         $event->setDescription('updated ' . get_class($args->getEntity()));
         $event->setChangeSet($this->getChangeSet($args));
@@ -41,6 +52,10 @@ class DoctrineEntityEventListener
 
     public function preRemove(LifecycleEventArgs $args)
     {
+        if($this->isAuditLogEntity($args)) {
+            return;
+        }
+
         $event = new AuditEvent('pbweb_audit.entity_remove');
         $event->setDescription('removed ' . get_class($args->getEntity()));
         $event->setChangeSet($this->getChangeSet($args));
@@ -54,5 +69,9 @@ class DoctrineEntityEventListener
         $changeSet = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($entity);
 
         return $changeSet;
+    }
+
+    protected function isAuditLogEntity(LifecycleEventArgs $args) {
+        return get_class($args->getEntity()) == $this->logEntityFqdn;
     }
 }
