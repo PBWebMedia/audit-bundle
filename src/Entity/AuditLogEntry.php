@@ -8,9 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
  * Class AuditLogEntry
  *
  * @copyright 2016 PB Web Media B.V.
- *
- * @ORM\Entity()
- * @ORM\Table(name="audit_log")
  */
 class AuditLogEntry
 {
