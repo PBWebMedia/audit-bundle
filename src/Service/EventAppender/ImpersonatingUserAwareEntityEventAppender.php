@@ -2,10 +2,10 @@
 
 namespace Pbweb\AuditBundle\Service\EventAppender;
 
-use Pbweb\AuditBundle\Entity\ImpersonatingUserAwareEntityInterface;
 use Pbweb\AuditBundle\Event\AuditEntityEvent;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Event\Events;
+use Pbweb\AuditBundle\Model\ImpersonatingUserAwareInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -29,7 +29,7 @@ class ImpersonatingUserAwareEntityEventAppender implements EventSubscriberInterf
         }
 
         $entity = $event->getEntity();
-        if(!$entity instanceof ImpersonatingUserAwareEntityInterface) {
+        if(!$entity instanceof ImpersonatingUserAwareInterface) {
             return;
         }
 

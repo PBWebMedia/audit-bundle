@@ -1,13 +1,13 @@
 <?php
 
-namespace Pbweb\AuditBundle\Entity;
+namespace Pbweb\AuditBundle\Model;
 
 /**
- * Interface ImpersonatingUserAwareEntityInterface
+ * Interface ImpersonatingUserAwareInterface
  *
  * @copyright 2016 PB Web Media B.V.
  */
-interface ImpersonatingUserAwareEntityInterface
+interface ImpersonatingUserAwareInterface
 {
     /**
      * @return string|null

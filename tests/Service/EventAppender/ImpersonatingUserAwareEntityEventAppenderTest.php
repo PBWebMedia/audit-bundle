@@ -3,9 +3,9 @@
 namespace Tests\Pbweb\AuditBundle\Service\EventAppender;
 
 use Mockery\Mock;
-use Pbweb\AuditBundle\Entity\ImpersonatingUserAwareEntityInterface;
 use Pbweb\AuditBundle\Event\AuditEntityEvent;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
+use Pbweb\AuditBundle\Model\ImpersonatingUserAwareInterface;
 use Pbweb\AuditBundle\Service\EventAppender\ImpersonatingUserAwareEntityEventAppender;
 
 /**
@@ -17,7 +17,7 @@ class ImpersonatingUserAwareEntityEventAppenderTest extends \PHPUnit_Framework_T
 {
     /** @var Mock|AuditEntityEvent */
     protected $event;
-    /** @var Mock|ImpersonatingUserAwareEntityInterface */
+    /** @var Mock|ImpersonatingUserAwareInterface */
     protected $entity;
     /** @var ImpersonatingUserAwareEntityEventAppender */
     protected $appender;
@@ -27,7 +27,7 @@ class ImpersonatingUserAwareEntityEventAppenderTest extends \PHPUnit_Framework_T
         parent::setUp();
 
         $this->event = \Mockery::mock(AuditEntityEvent::class);
-        $this->entity = \Mockery::mock(ImpersonatingUserAwareEntityInterface::class);
+        $this->entity = \Mockery::mock(ImpersonatingUserAwareInterface::class);
         $this->appender = new ImpersonatingUserAwareEntityEventAppender();
 
         $this->event->shouldReceive('getEntity')->andReturn($this->entity)->byDefault();
