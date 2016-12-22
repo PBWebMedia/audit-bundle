@@ -9,6 +9,8 @@ namespace Pbweb\AuditBundle\Event;
  */
 interface AuditEventInterface
 {
+    public function getTime(): \DateTime;
+
     public function getName(): string;
 
     public function getLevel(): string;

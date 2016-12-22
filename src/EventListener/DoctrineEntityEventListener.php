@@ -2,7 +2,9 @@
 
 namespace Pbweb\AuditBundle\EventListener;
 
+use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Pbweb\AuditBundle\Event\AuditEntityEvent;
 use Pbweb\AuditBundle\Event\AuditEvent;
 use Pbweb\AuditBundle\Service\AuditLog;
 
@@ -11,19 +13,36 @@ use Pbweb\AuditBundle\Service\AuditLog;
  *
  * @copyright 2016 PB Web Media B.V.
  */
-class DoctrineEntityEventListener
+class DoctrineEntityEventListener implements EventSubscriber
 {
     /** @var AuditLog */
     protected $log;
+    /** @var string */
+    private $logEntityFqdn;
 
-    public function __construct(AuditLog $log)
+    public function __construct(AuditLog $log, string $logEntityFqdn = '')
     {
         $this->log = $log;
+        $this->logEntityFqdn = $logEntityFqdn;
     }
+
+    public function getSubscribedEvents()
+    {
+        return [
+            'postPersist',
+            'postUpdate',
+            'preRemove',
+        ];
+    }
+
 
     public function postPersist(LifecycleEventArgs $args)
     {
-        $event = new AuditEvent('pbweb_audit.entity_insert');
+        if ($this->isAuditLogEntity($args)) {
+            return;
+        }
+
+        $event = new AuditEntityEvent('pbweb_audit.entity_insert', $args->getEntity());
         $event->setDescription('inserted ' . get_class($args->getEntity()));
         $event->setChangeSet($this->getChangeSet($args));
 
@@ -32,7 +51,11 @@ class DoctrineEntityEventListener
 
     public function postUpdate(LifecycleEventArgs $args)
     {
-        $event = new AuditEvent('pbweb_audit.entity_update');
+        if ($this->isAuditLogEntity($args)) {
+            return;
+        }
+
+        $event = new AuditEvent('pbweb_audit.entity_update', $args->getEntity());
         $event->setDescription('updated ' . get_class($args->getEntity()));
         $event->setChangeSet($this->getChangeSet($args));
 
@@ -41,7 +64,11 @@ class DoctrineEntityEventListener
 
     public function preRemove(LifecycleEventArgs $args)
     {
-        $event = new AuditEvent('pbweb_audit.entity_remove');
+        if ($this->isAuditLogEntity($args)) {
+            return;
+        }
+
+        $event = new AuditEvent('pbweb_audit.entity_remove', $args->getEntity());
         $event->setDescription('removed ' . get_class($args->getEntity()));
         $event->setChangeSet($this->getChangeSet($args));
 
@@ -54,5 +81,10 @@ class DoctrineEntityEventListener
         $changeSet = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($entity);
 
         return $changeSet;
+    }
+
+    protected function isAuditLogEntity(LifecycleEventArgs $args)
+    {
+        return get_class($args->getEntity()) == $this->logEntityFqdn;
     }
 }

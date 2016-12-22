@@ -16,6 +16,7 @@ class AuditEventTest extends \PHPUnit_Framework_TestCase
         $event = new AuditEvent('name', 'debug');
         self::assertEquals('name', $event->getName());
         self::assertEquals('debug', $event->getLevel());
+        self::assertInstanceOf(\DateTime::class, $event->getTime());
     }
 
     public function testGettersSetters()

@@ -20,3 +20,8 @@ services:
             - "@request_stack"
         tags:
             - { name: kernel.event_subscriber}
+
+    pbweb_audit.event_appender.impersonating_user_aware_entity:
+        class: Pbweb\AuditBundle\Service\EventAppender\ImpersonatingUserAwareEntityEventAppender
+        tags:
+            - { name: kernel.event_subscriber }

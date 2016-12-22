@@ -12,6 +12,8 @@ use Symfony\Component\EventDispatcher\Event;
  */
 class AuditEvent extends Event implements AuditEventInterface
 {
+    /** @var \DateTime */
+    protected $time;
     /** @var string */
     protected $name;
     /** @var string */
@@ -29,8 +31,17 @@ class AuditEvent extends Event implements AuditEventInterface
 
     public function __construct(string $name, $level = LogLevel::INFO)
     {
+        $this->time = new \DateTime();
         $this->name = $name;
         $this->level = $level;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getTime(): \DateTime
+    {
+        return $this->time;
     }
 
     public function getName(): string
