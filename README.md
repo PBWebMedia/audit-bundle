@@ -1,5 +1,5 @@
 # PB Web Media Audit Bundle
-Provides an easyily expendable Symfony Bundle to create an audit log.
+Provides an easily extendible Symfony Bundle to create an audit log.
 
 ## Installation
 ### Install with composer
