@@ -2,6 +2,7 @@
 
 namespace Pbweb\AuditBundle\EventListener;
 
+use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Pbweb\AuditBundle\Event\AuditEvent;
 use Pbweb\AuditBundle\Service\AuditLog;
@@ -11,7 +12,7 @@ use Pbweb\AuditBundle\Service\AuditLog;
  *
  * @copyright 2016 PB Web Media B.V.
  */
-class DoctrineEntityEventListener
+class DoctrineEntityEventListener implements EventSubscriber
 {
     /** @var AuditLog */
     protected $log;
@@ -24,9 +25,19 @@ class DoctrineEntityEventListener
         $this->logEntityFqdn = $logEntityFqdn;
     }
 
+    public function getSubscribedEvents()
+    {
+        return [
+            'postPersist',
+            'postUpdate',
+            'preRemove',
+        ];
+    }
+
+
     public function postPersist(LifecycleEventArgs $args)
     {
-        if($this->isAuditLogEntity($args)) {
+        if ($this->isAuditLogEntity($args)) {
             return;
         }
 
@@ -39,7 +50,7 @@ class DoctrineEntityEventListener
 
     public function postUpdate(LifecycleEventArgs $args)
     {
-        if($this->isAuditLogEntity($args)) {
+        if ($this->isAuditLogEntity($args)) {
             return;
         }
 
@@ -52,7 +63,7 @@ class DoctrineEntityEventListener
 
     public function preRemove(LifecycleEventArgs $args)
     {
-        if($this->isAuditLogEntity($args)) {
+        if ($this->isAuditLogEntity($args)) {
             return;
         }
 
@@ -71,7 +82,8 @@ class DoctrineEntityEventListener
         return $changeSet;
     }
 
-    protected function isAuditLogEntity(LifecycleEventArgs $args) {
+    protected function isAuditLogEntity(LifecycleEventArgs $args)
+    {
         return get_class($args->getEntity()) == $this->logEntityFqdn;
     }
 }
