@@ -37,5 +37,10 @@
   "suggest": {
     "doctrine/orm": "For writing the audit log to the database",
     "symfon/security": "For if you use the default event appenders"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.x-dev"
+    }
   }
 }
