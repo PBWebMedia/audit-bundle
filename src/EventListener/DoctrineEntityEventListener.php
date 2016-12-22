@@ -4,7 +4,7 @@ namespace Pbweb\AuditBundle\EventListener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Event\AuditEntityEvent;
+use Pbweb\AuditBundle\Event\AuditEntityEvent;
 use Pbweb\AuditBundle\Event\AuditEvent;
 use Pbweb\AuditBundle\Service\AuditLog;
 

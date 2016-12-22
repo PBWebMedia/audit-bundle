@@ -1,6 +1,6 @@
 <?php
 
-namespace Entity;
+namespace Pbweb\AuditBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

@@ -1,8 +1,7 @@
 <?php
 
-namespace Event;
+namespace Pbweb\AuditBundle\Event;
 
-use Pbweb\AuditBundle\Event\AuditEvent;
 use Psr\Log\LogLevel;
 
 /**

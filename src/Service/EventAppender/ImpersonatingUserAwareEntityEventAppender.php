@@ -2,8 +2,8 @@
 
 namespace Service\EventAppender;
 
-use Entity\ImpersonatingUserAwareEntityInterface;
-use Event\AuditEntityEvent;
+use Pbweb\AuditBundle\Entity\ImpersonatingUserAwareEntityInterface;
+use Pbweb\AuditBundle\Event\AuditEntityEvent;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Event\Events;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
