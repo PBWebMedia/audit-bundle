@@ -1,6 +1,6 @@
 <?php
 
-namespace Service\EventAppender;
+namespace Pbweb\AuditBundle\Service\EventAppender;
 
 use Pbweb\AuditBundle\Entity\ImpersonatingUserAwareEntityInterface;
 use Pbweb\AuditBundle\Event\AuditEntityEvent;
