@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="buzz-bundle" basedir="." default="build:main">
+<project name="audit-bundle" basedir="." default="build:main">
     <!-- Properties -->
     <property name="dir.src" value="${project.basedir}/src" />
     <property name="dir.build" value="${project.basedir}/build" />
