@@ -35,6 +35,7 @@
     "bin-dir": "bin"
   },
   "suggest": {
-    "doctrine/orm": "For writing the audit log to the database"
+    "doctrine/orm": "For writing the audit log to the database",
+    "symfon/security": "For if you use the default event appenders"
   }
 }
