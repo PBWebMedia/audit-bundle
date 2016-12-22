@@ -2,7 +2,6 @@
 Provides an easily extendible Symfony Bundle to create an audit log.
 
 ## Installation
-### Install with composer
 Install the audit-bundle using composer:
 
 ```
@@ -39,14 +38,19 @@ That way you can hook into generic flow moments or only respond to specific even
 
 The Audit Bundle uses the Symfony event system so all the normal shenanigans (like listener priorities, stopping propagation, etc) work when handling these events. 
 
-### Event Appenders
+## Event Appenders
 Events aren't usually complete by themselves, you probably want to append some data related to the event like the user that triggered it or the ip of the client.
 
 To do this listen to the `pbweb_audit.append_event` event (either through a [listener](http://symfony.com/doc/current/event_dispatcher.html#creating-an-event-listener)
 or [subscriber](http://symfony.com/doc/current/event_dispatcher.html#creating-an-event-subscriber)).
 It will receive all `AuditEventInterface` events that go into the audit log.
 
-### Loggers
+### Default event appenders
+The Audit Bundle comes packaged with a few event appenders that will be loaded by default, see the configuration section below on how to disable that.
+ 
+If you use these appenders, you need to add `symfony/security` to your project.
+
+## Loggers
 Eventually the audit log entries need to go somewhere, either the database, a PSR logger or whatever you can think of.
 
 The Audit Bundle comes packaged with a PSR logger and Doctrine logger (see below).
@@ -54,17 +58,16 @@ The Audit Bundle comes packaged with a PSR logger and Doctrine logger (see below
 You can also implement your own logger by listening to the `pbweb_audit.log_event` event.
 It will receive all `AuditEventInterface` events that go into the audit log.
 
-#### PSR Logger
+### PSR Logger
 By default the Audit Bundle loads the `PsrLogger`, which will use the `@logger` service to log events to your default log.
 Look at the configuration section below on how to disable this behaviour.
 
-#### Doctrine Logger
+### Doctrine Logger
 For small(ish) audit logs you could use the database as a data store.
 The Audit Bundle comes with an `AbstractDoctrineLogger`.
-The only thing you need to do is create a service that implements the `convertToEntity` method and let it listen to the `pbweb_audit.log_event` event.
+The only thing you need to do is create a service that implements the `convertToEntity` method and give it the tag `kernel.event_subscriber`.
 
 ## Configuration
-
 You can optionally configure the audit bundle in your `app/config.yml` file
 
 ```yaml
@@ -74,6 +77,5 @@ pbweb_audit:
 ```
 
 ## Copyright
-
 © PB Web Media
 
