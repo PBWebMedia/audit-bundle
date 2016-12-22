@@ -67,11 +67,10 @@ class AuditLogEntry
      */
     protected $changeSet;
 
-    public function __construct(string $level, string $name, string $user)
+    public function __construct(string $level, string $name)
     {
         $this->level = $level;
         $this->name = $name;
-        $this->user = $user;
         $this->time = new \DateTime();
     }
 
@@ -193,6 +192,4 @@ class AuditLogEntry
 
         return $this;
     }
-
-
 }

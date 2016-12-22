@@ -87,4 +87,14 @@ class DoctrineEntityEventListenerTest extends \PHPUnit_Framework_TestCase
 
         $this->listener->preRemove($this->args);
     }
+
+    public function testIgnoresConstructorLogEntityFqdn()
+    {
+        $listener = new DoctrineEntityEventListener($this->log, get_class($this->entity));
+
+        $this->log->shouldReceive('log')->never();
+        $listener->postPersist($this->args);
+        $listener->postUpdate($this->args);
+        $listener->preRemove($this->args);
+    }
 }
