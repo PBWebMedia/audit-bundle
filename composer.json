@@ -20,12 +20,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Pbweb\\": "src/Pbweb"
+      "Pbweb\\AuditBundle\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Tests\\": "tests/"
+      "Tests\\Pbweb\\AuditBundle\\": "tests/"
     }
   },
   "suggest": {
