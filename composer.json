@@ -31,6 +31,9 @@
       "Tests\\Pbweb\\AuditBundle\\": "tests/"
     }
   },
+  "config": {
+    "bin-dir": "bin"
+  },
   "suggest": {
     "doctrine/orm": "For writing the audit log to the database"
   }
