@@ -4,6 +4,7 @@ namespace Pbweb\AuditBundle\EventListener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Event\AuditEntityEvent;
 use Pbweb\AuditBundle\Event\AuditEvent;
 use Pbweb\AuditBundle\Service\AuditLog;
 
@@ -41,7 +42,7 @@ class DoctrineEntityEventListener implements EventSubscriber
             return;
         }
 
-        $event = new AuditEvent('pbweb_audit.entity_insert');
+        $event = new AuditEntityEvent('pbweb_audit.entity_insert', $args->getEntity());
         $event->setDescription('inserted ' . get_class($args->getEntity()));
         $event->setChangeSet($this->getChangeSet($args));
 
@@ -54,7 +55,7 @@ class DoctrineEntityEventListener implements EventSubscriber
             return;
         }
 
-        $event = new AuditEvent('pbweb_audit.entity_update');
+        $event = new AuditEvent('pbweb_audit.entity_update', $args->getEntity());
         $event->setDescription('updated ' . get_class($args->getEntity()));
         $event->setChangeSet($this->getChangeSet($args));
 
@@ -67,7 +68,7 @@ class DoctrineEntityEventListener implements EventSubscriber
             return;
         }
 
-        $event = new AuditEvent('pbweb_audit.entity_remove');
+        $event = new AuditEvent('pbweb_audit.entity_remove', $args->getEntity());
         $event->setDescription('removed ' . get_class($args->getEntity()));
         $event->setChangeSet($this->getChangeSet($args));
 
