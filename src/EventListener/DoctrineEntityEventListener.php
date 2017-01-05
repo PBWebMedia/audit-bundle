@@ -55,7 +55,7 @@ class DoctrineEntityEventListener implements EventSubscriber
             return;
         }
 
-        $event = new AuditEvent('pbweb_audit.entity_update', $args->getEntity());
+        $event = new AuditEntityEvent('pbweb_audit.entity_update', $args->getEntity());
         $event->setDescription('updated ' . get_class($args->getEntity()));
         $event->setChangeSet($this->getChangeSet($args));
 
@@ -68,7 +68,7 @@ class DoctrineEntityEventListener implements EventSubscriber
             return;
         }
 
-        $event = new AuditEvent('pbweb_audit.entity_remove', $args->getEntity());
+        $event = new AuditEntityEvent('pbweb_audit.entity_remove', $args->getEntity());
         $event->setDescription('removed ' . get_class($args->getEntity()));
         $event->setChangeSet($this->getChangeSet($args));
 
