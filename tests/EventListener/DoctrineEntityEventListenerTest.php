@@ -4,6 +4,7 @@ namespace Tests\Pbweb\AuditBundle\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\UnitOfWork;
 use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\EventListener\DoctrineEntityEventListener;
@@ -24,6 +25,8 @@ class DoctrineEntityEventListenerTest extends \PHPUnit_Framework_TestCase
     protected $entity;
     /** @var Mock|EntityManagerInterface */
     protected $entityManager;
+    /** @var Mock|UnitOfWork */
+    protected $unitOfWork;
     /** @var DoctrineEntityEventListener */
     protected $listener;
 
@@ -35,14 +38,15 @@ class DoctrineEntityEventListenerTest extends \PHPUnit_Framework_TestCase
         $this->args = \Mockery::mock(LifecycleEventArgs::class);
         $this->entity = \Mockery::mock();
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
+        $this->unitOfWork = \Mockery::mock(UnitOfWork::class);
         $this->listener = new DoctrineEntityEventListener($this->log);
 
         $this->args->shouldReceive('getEntity')->andReturn($this->entity)->byDefault();
         $this->args->shouldReceive('getEntityManager')->andReturn($this->entityManager)->byDefault();
         $this->entityManager->shouldIgnoreMissing($this->entityManager);
-        $this->entityManager->shouldReceive('getEntityChangeSet')->andReturn(
-            ['foo' => 'bar']
-        )->byDefault();
+        $this->entityManager->shouldReceive('getUnitOfWork')->andReturn($this->unitOfWork)->byDefault();
+        $this->unitOfWork->shouldReceive('getEntityChangeSet')->andReturn(['foo' => 'bar'])->byDefault();
+        $this->unitOfWork->shouldReceive('getScheduledCollectionUpdates')->andReturn([])->byDefault();
         $this->log->shouldReceive('log')->byDefault();
     }
 
