@@ -4,8 +4,8 @@ namespace Pbweb\AuditBundle\EventListener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\PersistentCollection;
 use Pbweb\AuditBundle\Event\AuditEntityEvent;
-use Pbweb\AuditBundle\Event\AuditEvent;
 use Pbweb\AuditBundle\Service\AuditLog;
 
 /**
@@ -34,7 +34,6 @@ class DoctrineEntityEventListener implements EventSubscriber
             'preRemove',
         ];
     }
-
 
     public function postPersist(LifecycleEventArgs $args)
     {
@@ -78,9 +77,31 @@ class DoctrineEntityEventListener implements EventSubscriber
     protected function getChangeSet(LifecycleEventArgs $args): array
     {
         $entity = $args->getEntity();
-        $changeSet = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($entity);
+        $unitOfWork = $args->getEntityManager()->getUnitOfWork();
 
-        return $changeSet;
+        return array_merge(
+            $unitOfWork->getEntityChangeSet($entity),
+            $this->getCollectionChangeSet($entity, $unitOfWork->getScheduledCollectionUpdates())
+        );
+    }
+
+    protected function getCollectionChangeSet($entity, array $collectionList)
+    {
+        $collectionChangeSet = [];
+        foreach ($collectionList as $collection) {
+            if ( ! $collection instanceof PersistentCollection) {
+                continue;
+            }
+
+            if ($collection->getOwner() == $entity) {
+                $collectionChangeSet[$collection->getMapping()['fieldName']] = [
+                    'insertions' => $collection->getInsertDiff(),
+                    'deletions' => $collection->getDeleteDiff()
+                ];
+            }
+        }
+
+        return $collectionChangeSet;
     }
 
     protected function isAuditLogEntity(LifecycleEventArgs $args)
