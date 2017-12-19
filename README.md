@@ -1,4 +1,8 @@
 # PB Web Media Audit Bundle
+
+[![pipeline status](https://gitlab.pbwdev.com/symfony-bundles/audit-bundle/badges/master/pipeline.svg)](https://gitlab.pbwdev.com/symfony-bundles/audit-bundle/commits/master)
+[![coverage report](https://gitlab.pbwdev.com/symfony-bundles/audit-bundle/badges/master/coverage.svg)](https://pages.pbwdev.com/symfony-bundles/audit-bundle/)
+
 Provides an easily extendible Symfony Bundle to create an audit log.
 
 ## Installation
