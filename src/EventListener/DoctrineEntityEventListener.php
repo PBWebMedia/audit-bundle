@@ -6,21 +6,19 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\PersistentCollection;
 use Pbweb\AuditBundle\Event\AuditEntityEvent;
-use Pbweb\AuditBundle\Service\AuditLog;
+use Pbweb\AuditBundle\Service\AuditLogInterface;
 
 /**
- * Class DoctrineEntityEventListener
- *
  * @copyright 2016 PB Web Media B.V.
  */
 class DoctrineEntityEventListener implements EventSubscriber
 {
-    /** @var AuditLog */
-    protected $log;
+    /** @var AuditLogInterface */
+    private $log;
     /** @var string */
     private $logEntityFqdn;
 
-    public function __construct(AuditLog $log, string $logEntityFqdn = '')
+    public function __construct(AuditLogInterface $log, string $logEntityFqdn = '')
     {
         $this->log = $log;
         $this->logEntityFqdn = $logEntityFqdn;
@@ -96,7 +94,7 @@ class DoctrineEntityEventListener implements EventSubscriber
             if ($collection->getOwner() == $entity) {
                 $collectionChangeSet[$collection->getMapping()['fieldName']] = [
                     'insertions' => $collection->getInsertDiff(),
-                    'deletions' => $collection->getDeleteDiff()
+                    'deletions' => $collection->getDeleteDiff(),
                 ];
             }
         }

@@ -3,20 +3,19 @@
 namespace Tests\Pbweb\AuditBundle\Event;
 
 use Pbweb\AuditBundle\Event\AuditEvent;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Class AuditEventTest
- *
  * @copyright 2016 PB Web Media B.V.
  */
-class AuditEventTest extends \PHPUnit_Framework_TestCase
+class AuditEventTest extends TestCase
 {
     public function testConstructor()
     {
         $event = new AuditEvent('name', 'debug');
-        self::assertEquals('name', $event->getName());
-        self::assertEquals('debug', $event->getLevel());
-        self::assertInstanceOf(\DateTime::class, $event->getTime());
+        $this->assertEquals('name', $event->getName());
+        $this->assertEquals('debug', $event->getLevel());
+        $this->assertInstanceOf(\DateTime::class, $event->getTime());
     }
 
     public function testGettersSetters()
@@ -24,19 +23,19 @@ class AuditEventTest extends \PHPUnit_Framework_TestCase
         $event = new AuditEvent('name', 'info');
 
         $event->setIp('127.0.0.1');
-        self::assertEquals('127.0.0.1', $event->getIp());
+        $this->assertEquals('127.0.0.1', $event->getIp());
 
         $event->setUser('user');
-        self::assertEquals('user', $event->getUser());
+        $this->assertEquals('user', $event->getUser());
 
         $event->setImpersonatingUser('impUser');
-        self::assertEquals('impUser', $event->getImpersonatingUser());
+        $this->assertEquals('impUser', $event->getImpersonatingUser());
 
         $event->setDescription('description');
-        self::assertEquals('description', $event->getDescription());
+        $this->assertEquals('description', $event->getDescription());
 
         $event->setChangeSet(['foo' => 'bar']);
-        self::assertEquals(['foo' => 'bar'], $event->getChangeSet());
+        $this->assertEquals(['foo' => 'bar'], $event->getChangeSet());
     }
 
 }

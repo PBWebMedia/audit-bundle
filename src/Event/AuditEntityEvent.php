@@ -5,13 +5,11 @@ namespace Pbweb\AuditBundle\Event;
 use Psr\Log\LogLevel;
 
 /**
- * Class AuditEntityEvent
- *
  * @copyright 2016 PB Web Media B.V.
  */
 class AuditEntityEvent extends AuditEvent
 {
-    /** @var  mixed */
+    /** @var mixed */
     protected $entity;
 
     public function __construct($name, $entity, $level = LogLevel::INFO)

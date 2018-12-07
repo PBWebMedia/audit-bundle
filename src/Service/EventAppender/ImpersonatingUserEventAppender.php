@@ -10,14 +10,12 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Role\SwitchUserRole;
 
 /**
- * Class ImpersonatingUserEventAppender
- *
  * @copyright 2016 PB Web Media B.V.
  */
 class ImpersonatingUserEventAppender implements EventSubscriberInterface
 {
     /** @var TokenStorageInterface */
-    protected $tokenStorage;
+    private $tokenStorage;
     /** @var AuthorizationCheckerInterface */
     private $authorizationChecker;
 

@@ -8,28 +8,26 @@ use Pbweb\AuditBundle\Event\Events;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
- * Class AuditLog
- *
  * @copyright 2016 PB Web Media B.V.
  */
-class AuditLog
+class AuditLog implements AuditLogInterface
 {
     /** @var EventDispatcherInterface */
-    protected $dispatcher;
+    private $dispatcher;
 
     public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
     }
 
-    public function log(AuditEventInterface $event)
+    public function log(AuditEventInterface $event): void
     {
         $this->dispatcher->dispatch(Events::APPEND_EVENT, $event);
         $this->dispatcher->dispatch($event->getName(), $event);
         $this->dispatcher->dispatch(Events::LOG_EVENT, $event);
     }
 
-    public function logSimple($eventName)
+    public function logSimple(string $eventName): void
     {
         $event = new AuditEvent($eventName);
 

@@ -3,8 +3,6 @@
 namespace Pbweb\AuditBundle\Event;
 
 /**
- * Class Events
- *
  * @copyright 2016 PB Web Media B.V.
  */
 class Events

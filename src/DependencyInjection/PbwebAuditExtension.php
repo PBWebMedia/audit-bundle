@@ -7,6 +7,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
+/**
+ * @copyright 2016 PB Web Media B.V.
+ */
 class PbwebAuditExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)

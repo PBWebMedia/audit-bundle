@@ -8,14 +8,12 @@ use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class DummyLogger
- *
  * @copyright 2016 PB Web Media B.V.
  */
 class DummyLogger implements EventSubscriberInterface
 {
     /** @var AuditEventInterface[] */
-    protected $eventList = [];
+    private $eventList = [];
 
     public static function getSubscribedEvents()
     {

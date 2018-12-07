@@ -5,44 +5,43 @@ namespace Tests\Pbweb\AuditBundle\Service\EventAppender;
 use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Service\EventAppender\ImpersonatingUserEventAppender;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Role\SwitchUserRole;
 
 /**
- * Class ImpersonatingUserEventAppenderTest
- *
  * @copyright 2016 PB Web Media B.V.
  */
-class ImpersonatingUserEventAppenderTest extends \PHPUnit_Framework_TestCase
+class ImpersonatingUserEventAppenderTest extends TestCase
 {
-    /** @var Mock|TokenStorageInterface */
-    protected $tokenStorage;
-    /** @var Mock|TokenInterface */
-    protected $token;
-    /** @var Mock|SwitchUserRole */
-    protected $switchRole;
-    /** @var Mock|TokenInterface */
-    protected $switchRoleSource;
-    /** @var Mock|AuthorizationCheckerInterface */
-    protected $authorizationChecker;
-    /** @var Mock|AuditEventInterface */
-    protected $event;
     /** @var ImpersonatingUserEventAppender */
-    protected $appender;
+    private $appender;
+    /** @var Mock|TokenStorageInterface */
+    private $tokenStorage;
+    /** @var Mock|AuthorizationCheckerInterface */
+    private $authorizationChecker;
+
+    /** @var Mock|TokenInterface */
+    private $token;
+    /** @var Mock|SwitchUserRole */
+    private $switchRole;
+    /** @var Mock|TokenInterface */
+    private $switchRoleSource;
+    /** @var Mock|AuditEventInterface */
+    private $event;
 
     public function setUp()
     {
-        parent::setUp();
-
         $this->tokenStorage = \Mockery::mock(TokenStorageInterface::class);
+        $this->authorizationChecker = \Mockery::mock(AuthorizationCheckerInterface::class);
+        $this->appender = new ImpersonatingUserEventAppender($this->tokenStorage, $this->authorizationChecker);
+
         $this->token = \Mockery::mock(TokenInterface::class);
         $this->switchRole = \Mockery::mock(SwitchUserRole::class);
         $this->switchRoleSource = \Mockery::mock(TokenInterface::class);
-        $this->authorizationChecker = \Mockery::mock(AuthorizationCheckerInterface::class);
         $this->event = \Mockery::mock(AuditEventInterface::class);
-        $this->appender = new ImpersonatingUserEventAppender($this->tokenStorage, $this->authorizationChecker);
 
         $this->event->shouldReceive('getImpersonatingUser')->andReturnNull()->byDefault();
         $this->tokenStorage->shouldReceive('getToken')->andReturn($this->token)->byDefault();

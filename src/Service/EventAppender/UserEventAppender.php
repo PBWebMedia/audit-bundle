@@ -8,14 +8,12 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
- * Class UserEventAppender
- *
  * @copyright 2016 PB Web Media B.V.
  */
 class UserEventAppender implements EventSubscriberInterface
 {
     /** @var TokenStorageInterface */
-    protected $tokenStorage;
+    private $tokenStorage;
 
     public function __construct(TokenStorageInterface $tokenStorage)
     {
