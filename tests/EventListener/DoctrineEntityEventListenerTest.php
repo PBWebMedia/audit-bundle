@@ -8,7 +8,7 @@ use Doctrine\ORM\UnitOfWork;
 use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\EventListener\DoctrineEntityEventListener;
-use Pbweb\AuditBundle\Service\AuditLog;
+use Pbweb\AuditBundle\Service\AuditLogInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,7 +18,7 @@ class DoctrineEntityEventListenerTest extends TestCase
 {
     /** @var DoctrineEntityEventListener */
     private $listener;
-    /** @var Mock|AuditLog */
+    /** @var Mock|AuditLogInterface */
     private $log;
 
     /** @var Mock|LifecycleEventArgs */
@@ -32,7 +32,7 @@ class DoctrineEntityEventListenerTest extends TestCase
 
     public function setUp()
     {
-        $this->log = \Mockery::mock(AuditLog::class);
+        $this->log = \Mockery::mock(AuditLogInterface::class);
         $this->listener = new DoctrineEntityEventListener($this->log);
 
         $this->args = \Mockery::mock(LifecycleEventArgs::class);
