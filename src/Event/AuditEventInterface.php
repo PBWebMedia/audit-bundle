@@ -3,8 +3,6 @@
 namespace Pbweb\AuditBundle\Event;
 
 /**
- * Interface AuditEventInterface
- *
  * @copyright 2016 PB Web Media B.V.
  */
 interface AuditEventInterface

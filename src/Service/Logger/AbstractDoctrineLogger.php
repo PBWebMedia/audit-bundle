@@ -8,8 +8,6 @@ use Pbweb\AuditBundle\Event\Events;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class AbstractDoctrineLogger
- *
  * @copyright 2016 PB Web Media B.V.
  */
 abstract class AbstractDoctrineLogger implements EventSubscriberInterface

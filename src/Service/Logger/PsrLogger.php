@@ -8,14 +8,12 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class PsrLogger
- *
  * @copyright 2016 PB Web Media B.V.
  */
 class PsrLogger implements EventSubscriberInterface
 {
     /** @var LoggerInterface */
-    protected $logger;
+    private $logger;
 
     public function __construct(LoggerInterface $logger)
     {

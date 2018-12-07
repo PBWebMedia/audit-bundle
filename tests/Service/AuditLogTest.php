@@ -7,29 +7,28 @@ use Pbweb\AuditBundle\Event\AuditEvent;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Event\Events;
 use Pbweb\AuditBundle\Service\AuditLog;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
- * Class AuditLogTest
- *
  * @copyright 2016 PB Web Media B.V.
  */
-class AuditLogTest extends \PHPUnit_Framework_TestCase
+class AuditLogTest extends TestCase
 {
-    /** @var Mock|EventDispatcherInterface */
-    protected $dispatcher;
-    /** @var Mock|AuditEventInterface */
-    protected $event;
     /** @var AuditLog */
-    protected $log;
+    private $log;
+    /** @var Mock|EventDispatcherInterface */
+    private $dispatcher;
+
+    /** @var Mock|AuditEventInterface */
+    private $event;
 
     public function setUp()
     {
-        parent::setUp();
-
         $this->dispatcher = \Mockery::mock(EventDispatcherInterface::class);
-        $this->event = \Mockery::mock(AuditEvent::class);
         $this->log = new AuditLog($this->dispatcher);
+
+        $this->event = \Mockery::mock(AuditEvent::class);
 
         $this->event->shouldReceive('getName')->andReturn('pbw.event')->byDefault();
         $this->dispatcher->shouldReceive('dispatch')->byDefault();

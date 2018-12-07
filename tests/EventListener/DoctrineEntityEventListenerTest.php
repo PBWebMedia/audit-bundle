@@ -9,37 +9,36 @@ use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\EventListener\DoctrineEntityEventListener;
 use Pbweb\AuditBundle\Service\AuditLog;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Class DoctrineEntityEventListenerTest
- *
  * @copyright 2016 PB Web Media B.V.
  */
-class DoctrineEntityEventListenerTest extends \PHPUnit_Framework_TestCase
+class DoctrineEntityEventListenerTest extends TestCase
 {
-    /** @var Mock|AuditLog */
-    protected $log;
-    /** @var Mock|LifecycleEventArgs */
-    protected $args;
-    /** @var Mock */
-    protected $entity;
-    /** @var Mock|EntityManagerInterface */
-    protected $entityManager;
-    /** @var Mock|UnitOfWork */
-    protected $unitOfWork;
     /** @var DoctrineEntityEventListener */
-    protected $listener;
+    private $listener;
+    /** @var Mock|AuditLog */
+    private $log;
+
+    /** @var Mock|LifecycleEventArgs */
+    private $args;
+    /** @var Mock */
+    private $entity;
+    /** @var Mock|EntityManagerInterface */
+    private $entityManager;
+    /** @var Mock|UnitOfWork */
+    private $unitOfWork;
 
     public function setUp()
     {
-        parent::setUp();
-
         $this->log = \Mockery::mock(AuditLog::class);
+        $this->listener = new DoctrineEntityEventListener($this->log);
+
         $this->args = \Mockery::mock(LifecycleEventArgs::class);
         $this->entity = \Mockery::mock();
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->unitOfWork = \Mockery::mock(UnitOfWork::class);
-        $this->listener = new DoctrineEntityEventListener($this->log);
 
         $this->args->shouldReceive('getEntity')->andReturn($this->entity)->byDefault();
         $this->args->shouldReceive('getEntityManager')->andReturn($this->entityManager)->byDefault();
@@ -54,9 +53,9 @@ class DoctrineEntityEventListenerTest extends \PHPUnit_Framework_TestCase
     {
         $this->log->shouldReceive('log')
             ->once()
-            ->with(\Mockery::on(function(AuditEventInterface $event) {
-                self::assertContains('insert', $event->getDescription());
-                self::assertEquals(['foo' => 'bar'], $event->getChangeSet());
+            ->with(\Mockery::on(function (AuditEventInterface $event) {
+                $this->assertContains('insert', $event->getDescription());
+                $this->assertEquals(['foo' => 'bar'], $event->getChangeSet());
 
                 return true;
             }));
@@ -68,9 +67,9 @@ class DoctrineEntityEventListenerTest extends \PHPUnit_Framework_TestCase
     {
         $this->log->shouldReceive('log')
             ->once()
-            ->with(\Mockery::on(function(AuditEventInterface $event) {
-                self::assertContains('update', $event->getDescription());
-                self::assertEquals(['foo' => 'bar'], $event->getChangeSet());
+            ->with(\Mockery::on(function (AuditEventInterface $event) {
+                $this->assertContains('update', $event->getDescription());
+                $this->assertEquals(['foo' => 'bar'], $event->getChangeSet());
 
                 return true;
             }));
@@ -82,9 +81,9 @@ class DoctrineEntityEventListenerTest extends \PHPUnit_Framework_TestCase
     {
         $this->log->shouldReceive('log')
             ->once()
-            ->with(\Mockery::on(function(AuditEventInterface $event) {
-                self::assertContains('remove', $event->getDescription());
-                self::assertEquals(['foo' => 'bar'], $event->getChangeSet());
+            ->with(\Mockery::on(function (AuditEventInterface $event) {
+                $this->assertContains('remove', $event->getDescription());
+                $this->assertEquals(['foo' => 'bar'], $event->getChangeSet());
 
                 return true;
             }));

@@ -1,27 +1,19 @@
 services:
-    pbweb_audit.event_appender.user:
-        class: Pbweb\AuditBundle\Service\EventAppender\UserEventAppender
+    Pbweb\AuditBundle\Service\EventAppender\UserEventAppender:
         arguments:
-            - "@security.token_storage"
-        tags:
-            - { name: kernel.event_subscriber}
+            - '@Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface'
+        tags: [kernel.event_subscriber]
 
-    pbweb_audit.event_appender.impersonating_user:
-        class: Pbweb\AuditBundle\Service\EventAppender\ImpersonatingUserEventAppender
+    Pbweb\AuditBundle\Service\EventAppender\ImpersonatingUserEventAppender:
         arguments:
-            - "@security.token_storage"
-            - "@security.authorization_checker"
-        tags:
-            - { name: kernel.event_subscriber}
+            - '@Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface'
+            - '@Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface'
+        tags: [kernel.event_subscriber]
 
-    pbweb_audit.event_appender.ip:
-        class: Pbweb\AuditBundle\Service\EventAppender\IpEventAppender
+    Pbweb\AuditBundle\Service\EventAppender\IpEventAppender:
         arguments:
-            - "@request_stack"
-        tags:
-            - { name: kernel.event_subscriber}
+            - '@Symfony\Component\HttpFoundation\RequestStack'
+        tags: [kernel.event_subscriber]
 
-    pbweb_audit.event_appender.impersonating_user_aware_entity:
-        class: Pbweb\AuditBundle\Service\EventAppender\ImpersonatingUserAwareEntityEventAppender
-        tags:
-            - { name: kernel.event_subscriber }
+    Pbweb\AuditBundle\Service\EventAppender\ImpersonatingUserAwareEntityEventAppender:
+        tags: [kernel.event_subscriber]

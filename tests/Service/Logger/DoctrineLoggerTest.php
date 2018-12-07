@@ -6,28 +6,27 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Service\Logger\AbstractDoctrineLogger;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Class DoctrineLoggerTest
- *
  * @copyright 2016 PB Web Media B.V.
  */
-class DoctrineLoggerTest extends \PHPUnit_Framework_TestCase
+class DoctrineLoggerTest extends TestCase
 {
-    /** @var Mock|EntityManagerInterface */
-    protected $entityManager;
-    /** @var AuditEventInterface */
-    protected $event;
     /** @var AbstractDoctrineLogger */
-    protected $logger;
+    private $logger;
+    /** @var Mock|EntityManagerInterface */
+    private $entityManager;
+
+    /** @var AuditEventInterface */
+    private $event;
 
     public function setUp()
     {
-        parent::setUp();
-
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
-        $this->event = \Mockery::mock(AuditEventInterface::class);
         $this->logger = new DoctrineTestLogger($this->entityManager);
+
+        $this->event = \Mockery::mock(AuditEventInterface::class);
     }
 
     public function testPersistsAndFlushes()

@@ -6,8 +6,6 @@ use Psr\Log\LogLevel;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Class AuditEvent
- *
  * @copyright 2016 PB Web Media B.V.
  */
 class AuditEvent extends Event implements AuditEventInterface

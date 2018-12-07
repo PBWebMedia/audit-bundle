@@ -9,14 +9,12 @@ use Pbweb\AuditBundle\Event\AuditEntityEvent;
 use Pbweb\AuditBundle\Service\AuditLog;
 
 /**
- * Class DoctrineEntityEventListener
- *
  * @copyright 2016 PB Web Media B.V.
  */
 class DoctrineEntityEventListener implements EventSubscriber
 {
     /** @var AuditLog */
-    protected $log;
+    private $log;
     /** @var string */
     private $logEntityFqdn;
 
@@ -96,7 +94,7 @@ class DoctrineEntityEventListener implements EventSubscriber
             if ($collection->getOwner() == $entity) {
                 $collectionChangeSet[$collection->getMapping()['fieldName']] = [
                     'insertions' => $collection->getInsertDiff(),
-                    'deletions' => $collection->getDeleteDiff()
+                    'deletions' => $collection->getDeleteDiff(),
                 ];
             }
         }

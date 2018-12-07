@@ -5,29 +5,28 @@ namespace Tests\Pbweb\AuditBundle\Service\Logger;
 use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Service\Logger\PsrLogger;
+use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
 /**
- * Class PsrLoggerTest
- *
  * @copyright 2016 PB Web Media B.V.
  */
-class PsrLoggerTest extends \PHPUnit_Framework_TestCase
+class PsrLoggerTest extends TestCase
 {
     /** @var Mock|LoggerInterface */
-    protected $innerLogger;
-    /** @var Mock|AuditEventInterface */
-    protected $event;
+    private $innerLogger;
     /** @var PsrLogger */
-    protected $logger;
+    private $logger;
+
+    /** @var Mock|AuditEventInterface */
+    private $event;
 
     public function setUp()
     {
-        parent::setUp();
-
         $this->innerLogger = \Mockery::mock(LoggerInterface::class);
-        $this->event = \Mockery::mock(AuditEventInterface::class);
         $this->logger = new PsrLogger($this->innerLogger);
+
+        $this->event = \Mockery::mock(AuditEventInterface::class);
 
         $this->event->shouldReceive('getLevel')->andReturn('info')->byDefault();
         $this->event->shouldReceive('getName')->andReturn('foo')->byDefault();
@@ -42,14 +41,14 @@ class PsrLoggerTest extends \PHPUnit_Framework_TestCase
     {
         $this->innerLogger->shouldReceive('log')
             ->once()
-            ->with('info', \Mockery::on(function(string $message) {
-                self::assertContains('foo', $message);
-                self::assertContains('bar', $message);
-                self::assertContains('bla', $message);
-                self::assertContains('bloo', $message);
-                self::assertContains('127.0.0.1', $message);
-                self::assertContains('key', $message);
-                self::assertContains('value', $message);
+            ->with('info', \Mockery::on(function (string $message) {
+                $this->assertContains('foo', $message);
+                $this->assertContains('bar', $message);
+                $this->assertContains('bla', $message);
+                $this->assertContains('bloo', $message);
+                $this->assertContains('127.0.0.1', $message);
+                $this->assertContains('key', $message);
+                $this->assertContains('value', $message);
 
                 return true;
             }));

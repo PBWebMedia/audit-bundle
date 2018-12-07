@@ -2,18 +2,19 @@
 
 namespace Tests\Pbweb\AuditBundle\Service\Logger;
 
+use Mockery\Mock;
 use Pbweb\AuditBundle\Service\Logger\DummyLogger;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Class DummyLoggerTest
- *
  * @copyright 2016 PB Web Media B.V.
  */
-class DummyLoggerTest extends \PHPUnit_Framework_TestCase
+class DummyLoggerTest extends TestCase
 {
     public function testStopsPropagation()
     {
+        /** @var Mock|Event $event */
         $event = \Mockery::mock(Event::class);
         $event->shouldReceive('stopPropagation')->once();
 
@@ -23,12 +24,13 @@ class DummyLoggerTest extends \PHPUnit_Framework_TestCase
 
     public function testCollectsEvents()
     {
+        /** @var Mock|Event $event */
         $event = \Mockery::mock(Event::class);
         $event->shouldIgnoreMissing();
 
         $logger = new DummyLogger();
         $logger->log($event);
 
-        self::assertEquals([$event], $logger->getEventList());
+        $this->assertEquals([$event], $logger->getEventList());
     }
 }

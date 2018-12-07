@@ -5,8 +5,6 @@ namespace Pbweb\AuditBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class AuditLogEntry
- *
  * @copyright 2016 PB Web Media B.V.
  */
 class AuditLogEntry
@@ -118,10 +116,7 @@ class AuditLogEntry
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getIp()
+    public function getIp(): ?string
     {
         return $this->ip;
     }
@@ -133,10 +128,7 @@ class AuditLogEntry
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getUser()
+    public function getUser(): ?string
     {
         return $this->user;
     }
@@ -148,10 +140,7 @@ class AuditLogEntry
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getImpersonatingUser()
+    public function getImpersonatingUser(): ?string
     {
         return $this->impersonatingUser;
     }
@@ -163,10 +152,7 @@ class AuditLogEntry
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -178,10 +164,7 @@ class AuditLogEntry
         return $this;
     }
 
-    /**
-     * @return array|null
-     */
-    public function getChangeSet()
+    public function getChangeSet(): ?array
     {
         return $this->changeSet;
     }

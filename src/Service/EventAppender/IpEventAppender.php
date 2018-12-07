@@ -8,14 +8,12 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Class IpEventAppender
- *
  * @copyright 2016 PB Web Media B.V.
  */
 class IpEventAppender implements EventSubscriberInterface
 {
     /** @var RequestStack */
-    protected $requestStack;
+    private $requestStack;
 
     public function __construct(RequestStack $requestStack)
     {
@@ -36,7 +34,7 @@ class IpEventAppender implements EventSubscriberInterface
         }
 
         $request = $this->requestStack->getCurrentRequest();
-        if(!$request) {
+        if ( ! $request) {
             return;
         }
 

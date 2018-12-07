@@ -4,22 +4,20 @@ namespace Tests\Pbweb\AuditBundle\Event;
 
 use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AuditEntityEvent;
-use Pbweb\AuditBundle\Event\AuditEvent;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Class AuditEntityEventTest
- *
  * @copyright 2016 PB Web Media B.V.
  */
-class AuditEntityEventTest extends \PHPUnit_Framework_TestCase
+class AuditEntityEventTest extends TestCase
 {
     public function testConstructor()
     {
         $entity = new Mock();
         $event = new AuditEntityEvent('name', $entity, 'debug');
-        self::assertEquals('name', $event->getName());
-        self::assertEquals($entity, $event->getEntity());
-        self::assertEquals('debug', $event->getLevel());
-        self::assertInstanceOf(\DateTime::class, $event->getTime());
+        $this->assertEquals('name', $event->getName());
+        $this->assertEquals($entity, $event->getEntity());
+        $this->assertEquals('debug', $event->getLevel());
+        $this->assertInstanceOf(\DateTime::class, $event->getTime());
     }
 }

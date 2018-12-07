@@ -5,33 +5,32 @@ namespace Tests\Pbweb\AuditBundle\Service\EventAppender;
 use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Service\EventAppender\IpEventAppender;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
- * Class IpEventAppenderTest
- *
  * @copyright 2016 PB Web Media B.V.
  */
-class IpEventAppenderTest extends \PHPUnit_Framework_TestCase
+class IpEventAppenderTest extends TestCase
 {
-    /** @var Mock|RequestStack */
-    protected $requestStack;
-    /** @var Mock|Request */
-    protected $request;
-    /** @var Mock|AuditEventInterface */
-    protected $event;
     /** @var IpEventAppender */
-    protected $appender;
+    private $appender;
+    /** @var Mock|RequestStack */
+    private $requestStack;
+
+    /** @var Mock|Request */
+    private $request;
+    /** @var Mock|AuditEventInterface */
+    private $event;
 
     public function setUp()
     {
-        parent::setUp();
-
         $this->requestStack = \Mockery::mock(RequestStack::class);
+        $this->appender = new IpEventAppender($this->requestStack);
+
         $this->request = \Mockery::mock(Request::class);
         $this->event = \Mockery::mock(AuditEventInterface::class);
-        $this->appender = new IpEventAppender($this->requestStack);
 
         $this->event->shouldReceive('getIp')->andReturnNull()->byDefault();
         $this->requestStack->shouldReceive('getCurrentRequest')->andReturn($this->request)->byDefault();

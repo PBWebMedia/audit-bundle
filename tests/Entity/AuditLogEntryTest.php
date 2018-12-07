@@ -3,20 +3,19 @@
 namespace Tests\Pbweb\AuditBundle\Entity;
 
 use Pbweb\AuditBundle\Entity\AuditLogEntry;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Class AuditLogEntryTest
- *
  * @copyright 2016 PB Web Media B.V.
  */
-class AuditLogEntryTest extends \PHPUnit_Framework_TestCase
+class AuditLogEntryTest extends TestCase
 {
     public function testConstructor()
     {
         $entry = new AuditLogEntry('debug', 'name');
-        self::assertEquals('debug', $entry->getLevel());
-        self::assertEquals('name', $entry->getName());
-        self::assertInstanceOf(\DateTime::class, $entry->getTime());
+        $this->assertEquals('debug', $entry->getLevel());
+        $this->assertEquals('name', $entry->getName());
+        $this->assertInstanceOf(\DateTime::class, $entry->getTime());
     }
 
     public function testGettersSetters()
@@ -25,28 +24,28 @@ class AuditLogEntryTest extends \PHPUnit_Framework_TestCase
 
         $now = new \DateTime();
         $entry->setTime($now);
-        self::assertEquals($now, $entry->getTime());
+        $this->assertEquals($now, $entry->getTime());
 
         $entry->setLevel('info');
-        self::assertEquals('info', $entry->getLevel());
+        $this->assertEquals('info', $entry->getLevel());
 
         $entry->setName('name-2');
-        self::assertEquals('name-2', $entry->getName());
+        $this->assertEquals('name-2', $entry->getName());
 
         $entry->setIp('127.0.0.1');
-        self::assertEquals('127.0.0.1', $entry->getIp());
+        $this->assertEquals('127.0.0.1', $entry->getIp());
 
         $entry->setUser('user');
-        self::assertEquals('user', $entry->getUser());
+        $this->assertEquals('user', $entry->getUser());
 
         $entry->setImpersonatingUser('impUser');
-        self::assertEquals('impUser', $entry->getImpersonatingUser());
+        $this->assertEquals('impUser', $entry->getImpersonatingUser());
 
         $entry->setDescription('desc');
-        self::assertEquals('desc', $entry->getDescription());
+        $this->assertEquals('desc', $entry->getDescription());
 
         $entry->setChangeSet(['foo' => 'bar']);
-        self::assertEquals(['foo' => 'bar'], $entry->getChangeSet());
+        $this->assertEquals(['foo' => 'bar'], $entry->getChangeSet());
     }
 
 }

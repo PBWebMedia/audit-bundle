@@ -9,8 +9,6 @@ use Pbweb\AuditBundle\Model\ImpersonatingUserAwareInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Class ImpersonatingUserAwareEntityEventAppender
- *
  * @copyright 2016 PB Web Media B.V.
  */
 class ImpersonatingUserAwareEntityEventAppender implements EventSubscriberInterface
@@ -29,7 +27,7 @@ class ImpersonatingUserAwareEntityEventAppender implements EventSubscriberInterf
         }
 
         $entity = $event->getEntity();
-        if(!$entity instanceof ImpersonatingUserAwareInterface) {
+        if ( ! $entity instanceof ImpersonatingUserAwareInterface) {
             return;
         }
 
