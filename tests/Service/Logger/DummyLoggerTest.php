@@ -2,15 +2,15 @@
 
 namespace Tests\Pbweb\AuditBundle\Service\Logger;
 
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Mockery\Mock;
 use Pbweb\AuditBundle\Service\Logger\DummyLogger;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
  * @copyright 2016 PB Web Media B.V.
  */
-class DummyLoggerTest extends TestCase
+class DummyLoggerTest extends MockeryTestCase
 {
     public function testStopsPropagation()
     {

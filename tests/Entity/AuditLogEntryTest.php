@@ -2,13 +2,13 @@
 
 namespace Tests\Pbweb\AuditBundle\Entity;
 
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Pbweb\AuditBundle\Entity\AuditLogEntry;
-use PHPUnit\Framework\TestCase;
 
 /**
  * @copyright 2016 PB Web Media B.V.
  */
-class AuditLogEntryTest extends TestCase
+class AuditLogEntryTest extends MockeryTestCase
 {
     public function testConstructor()
     {

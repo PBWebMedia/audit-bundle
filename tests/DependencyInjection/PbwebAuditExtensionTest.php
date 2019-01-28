@@ -2,14 +2,14 @@
 
 namespace Tests\Pbweb\AuditBundle\DependencyInjection;
 
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Pbweb\AuditBundle\DependencyInjection\PbwebAuditExtension;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * @copyright 2016 PB Web Media B.V.
  */
-class PbwebAuditExtensionTest extends TestCase
+class PbwebAuditExtensionTest extends MockeryTestCase
 {
     public function testRoot()
     {

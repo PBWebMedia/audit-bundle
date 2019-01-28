@@ -5,16 +5,16 @@ namespace Tests\Pbweb\AuditBundle\EventListener;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\UnitOfWork;
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\EventListener\DoctrineEntityEventListener;
 use Pbweb\AuditBundle\Service\AuditLogInterface;
-use PHPUnit\Framework\TestCase;
 
 /**
  * @copyright 2016 PB Web Media B.V.
  */
-class DoctrineEntityEventListenerTest extends TestCase
+class DoctrineEntityEventListenerTest extends MockeryTestCase
 {
     /** @var DoctrineEntityEventListener */
     private $listener;

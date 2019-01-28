@@ -3,15 +3,15 @@
 namespace Tests\Pbweb\AuditBundle\Service\Logger;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Service\Logger\AbstractDoctrineLogger;
-use PHPUnit\Framework\TestCase;
 
 /**
  * @copyright 2016 PB Web Media B.V.
  */
-class DoctrineLoggerTest extends TestCase
+class DoctrineLoggerTest extends MockeryTestCase
 {
     /** @var AbstractDoctrineLogger */
     private $logger;

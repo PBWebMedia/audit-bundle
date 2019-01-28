@@ -2,17 +2,17 @@
 
 namespace Tests\Pbweb\AuditBundle\Service\EventAppender;
 
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Service\EventAppender\UserEventAppender;
-use PHPUnit\Framework\TestCase;
 use Prophecy\Argument\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * @copyright 2016 PB Web Media B.V.
  */
-class UserEventAppenderTest extends TestCase
+class UserEventAppenderTest extends MockeryTestCase
 {
     /** @var UserEventAppender */
     private $appender;

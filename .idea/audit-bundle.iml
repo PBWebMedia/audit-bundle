@@ -23,6 +23,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/monolog/monolog" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/myclabs/deep-copy" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/pbweb/pbweb-coding-standard" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/manifest" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/version" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-common" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-docblock" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/type-resolver" />
@@ -33,7 +35,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-timer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-token-stream" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/phpunit" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/phpunit-mock-objects" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/cache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/container" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/log" />
@@ -45,6 +46,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/exporter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/global-state" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/object-enumerator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/object-reflector" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/recursion-context" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/resource-operations" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/version" />
@@ -68,10 +70,14 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-mbstring" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/property-access" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/routing" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/security" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/security-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/security-core" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/security-csrf" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/security-guard" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/security-http" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/var-exporter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/yaml" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/theseer/tokenizer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
     </content>
     <orderEntry type="inheritedJdk" />

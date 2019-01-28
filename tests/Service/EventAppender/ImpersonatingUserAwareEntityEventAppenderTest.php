@@ -2,17 +2,17 @@
 
 namespace Tests\Pbweb\AuditBundle\Service\EventAppender;
 
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AuditEntityEvent;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Model\ImpersonatingUserAwareInterface;
 use Pbweb\AuditBundle\Service\EventAppender\ImpersonatingUserAwareEntityEventAppender;
-use PHPUnit\Framework\TestCase;
 
 /**
  * @copyright 2016 PB Web Media B.V.
  */
-class ImpersonatingUserAwareEntityEventAppenderTest extends TestCase
+class ImpersonatingUserAwareEntityEventAppenderTest extends MockeryTestCase
 {
     /** @var ImpersonatingUserAwareEntityEventAppender */
     private $appender;

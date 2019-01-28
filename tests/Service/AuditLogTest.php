@@ -2,18 +2,18 @@
 
 namespace Tests\Pbweb\AuditBundle\Service;
 
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AuditEvent;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Event\Events;
 use Pbweb\AuditBundle\Service\AuditLog;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @copyright 2016 PB Web Media B.V.
  */
-class AuditLogTest extends TestCase
+class AuditLogTest extends MockeryTestCase
 {
     /** @var AuditLog */
     private $log;

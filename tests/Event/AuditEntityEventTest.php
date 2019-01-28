@@ -2,14 +2,14 @@
 
 namespace Tests\Pbweb\AuditBundle\Event;
 
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AuditEntityEvent;
-use PHPUnit\Framework\TestCase;
 
 /**
  * @copyright 2016 PB Web Media B.V.
  */
-class AuditEntityEventTest extends TestCase
+class AuditEntityEventTest extends MockeryTestCase
 {
     public function testConstructor()
     {

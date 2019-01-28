@@ -2,16 +2,16 @@
 
 namespace Tests\Pbweb\AuditBundle\Service\Logger;
 
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Service\Logger\PsrLogger;
-use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
 /**
  * @copyright 2016 PB Web Media B.V.
  */
-class PsrLoggerTest extends TestCase
+class PsrLoggerTest extends MockeryTestCase
 {
     /** @var Mock|LoggerInterface */
     private $innerLogger;

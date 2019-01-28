@@ -2,17 +2,17 @@
 
 namespace Tests\Pbweb\AuditBundle\Service\EventAppender;
 
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Service\EventAppender\IpEventAppender;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @copyright 2016 PB Web Media B.V.
  */
-class IpEventAppenderTest extends TestCase
+class IpEventAppenderTest extends MockeryTestCase
 {
     /** @var IpEventAppender */
     private $appender;

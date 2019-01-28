@@ -2,10 +2,10 @@
 
 namespace Tests\Pbweb\AuditBundle\Service\EventAppender;
 
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Service\EventAppender\ImpersonatingUserEventAppender;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\Role\SwitchUserRole;
 /**
  * @copyright 2016 PB Web Media B.V.
  */
-class ImpersonatingUserEventAppenderTest extends TestCase
+class ImpersonatingUserEventAppenderTest extends MockeryTestCase
 {
     /** @var ImpersonatingUserEventAppender */
     private $appender;
