@@ -2,6 +2,7 @@
 
 namespace Pbweb\AuditBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -12,8 +13,16 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('pbweb_audit');
+        $treeBuilder = new TreeBuilder('pbweb_audit');
+
+        // For BC with symfony/config < 4.2
+        if (method_exists($treeBuilder, 'getRootNode')) {
+            /** @var ArrayNodeDefinition $rootNode */
+            $rootNode = $treeBuilder->getRootNode();
+        } else {
+            $rootNode = $treeBuilder->root('pbweb_audit');
+        }
+
         $rootNode
             ->children()
                 ->booleanNode('load_default_event_appenders')->defaultTrue()->end()

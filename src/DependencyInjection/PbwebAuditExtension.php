@@ -25,7 +25,5 @@ class PbwebAuditExtension extends Extension
         if ($config['load_default_event_loggers']) {
             $loader->load('default/loggers.yml');
         }
-
-        $root = 'pbweb_audit.';
     }
 }
