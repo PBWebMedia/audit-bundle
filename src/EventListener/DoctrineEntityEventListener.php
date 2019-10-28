@@ -91,7 +91,7 @@ class DoctrineEntityEventListener implements EventSubscriber
                 continue;
             }
 
-            if ($collection->getOwner() == $entity) {
+            if (spl_object_hash($collection->getOwner()) === spl_object_hash($entity)) {
                 $collectionChangeSet[$collection->getMapping()['fieldName']] = [
                     'insertions' => $collection->getInsertDiff(),
                     'deletions' => $collection->getDeleteDiff(),
