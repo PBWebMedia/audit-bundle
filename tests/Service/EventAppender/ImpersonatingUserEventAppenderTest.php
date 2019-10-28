@@ -32,7 +32,7 @@ class ImpersonatingUserEventAppenderTest extends MockeryTestCase
     /** @var Mock|AuditEventInterface */
     private $event;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->tokenStorage = \Mockery::mock(TokenStorageInterface::class);
         $this->authorizationChecker = \Mockery::mock(AuthorizationCheckerInterface::class);

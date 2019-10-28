@@ -21,7 +21,7 @@ class PsrLoggerTest extends MockeryTestCase
     /** @var Mock|AuditEventInterface */
     private $event;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->innerLogger = \Mockery::mock(LoggerInterface::class);
         $this->logger = new PsrLogger($this->innerLogger);
@@ -42,13 +42,13 @@ class PsrLoggerTest extends MockeryTestCase
         $this->innerLogger->shouldReceive('log')
             ->once()
             ->with('info', \Mockery::on(function (string $message) {
-                $this->assertContains('foo', $message);
-                $this->assertContains('bar', $message);
-                $this->assertContains('bla', $message);
-                $this->assertContains('bloo', $message);
-                $this->assertContains('127.0.0.1', $message);
-                $this->assertContains('key', $message);
-                $this->assertContains('value', $message);
+                $this->assertStringContainsString('foo', $message);
+                $this->assertStringContainsString('bar', $message);
+                $this->assertStringContainsString('bla', $message);
+                $this->assertStringContainsString('bloo', $message);
+                $this->assertStringContainsString('127.0.0.1', $message);
+                $this->assertStringContainsString('key', $message);
+                $this->assertStringContainsString('value', $message);
 
                 return true;
             }));

@@ -22,7 +22,7 @@ class ImpersonatingUserAwareEntityEventAppenderTest extends MockeryTestCase
     /** @var Mock|ImpersonatingUserAwareInterface */
     private $entity;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->appender = new ImpersonatingUserAwareEntityEventAppender();
 

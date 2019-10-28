@@ -24,7 +24,7 @@ class IpEventAppenderTest extends MockeryTestCase
     /** @var Mock|AuditEventInterface */
     private $event;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->requestStack = \Mockery::mock(RequestStack::class);
         $this->appender = new IpEventAppender($this->requestStack);

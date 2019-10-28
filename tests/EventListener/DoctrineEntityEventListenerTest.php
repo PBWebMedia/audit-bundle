@@ -30,7 +30,7 @@ class DoctrineEntityEventListenerTest extends MockeryTestCase
     /** @var Mock|UnitOfWork */
     private $unitOfWork;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->log = \Mockery::mock(AuditLogInterface::class);
         $this->listener = new DoctrineEntityEventListener($this->log);
@@ -54,7 +54,7 @@ class DoctrineEntityEventListenerTest extends MockeryTestCase
         $this->log->shouldReceive('log')
             ->once()
             ->with(\Mockery::on(function (AuditEventInterface $event) {
-                $this->assertContains('insert', $event->getDescription());
+                $this->assertStringContainsString('insert', $event->getDescription());
                 $this->assertEquals(['foo' => 'bar'], $event->getChangeSet());
 
                 return true;
@@ -68,7 +68,7 @@ class DoctrineEntityEventListenerTest extends MockeryTestCase
         $this->log->shouldReceive('log')
             ->once()
             ->with(\Mockery::on(function (AuditEventInterface $event) {
-                $this->assertContains('update', $event->getDescription());
+                $this->assertStringContainsString('update', $event->getDescription());
                 $this->assertEquals(['foo' => 'bar'], $event->getChangeSet());
 
                 return true;
@@ -82,7 +82,7 @@ class DoctrineEntityEventListenerTest extends MockeryTestCase
         $this->log->shouldReceive('log')
             ->once()
             ->with(\Mockery::on(function (AuditEventInterface $event) {
-                $this->assertContains('remove', $event->getDescription());
+                $this->assertStringContainsString('remove', $event->getDescription());
                 $this->assertEquals(['foo' => 'bar'], $event->getChangeSet());
 
                 return true;

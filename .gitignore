@@ -1,6 +1,7 @@
 /bin/
 /vendor/
 .DS_Store
+/.phpunit.result.cache
 
 /.idea/workspace.xml
 /.idea/deployment.xml

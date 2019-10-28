@@ -23,7 +23,7 @@ class AuditLogTest extends MockeryTestCase
     /** @var Mock|AuditEventInterface */
     private $event;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->dispatcher = \Mockery::mock(EventDispatcherInterface::class);
         $this->log = new AuditLog($this->dispatcher);

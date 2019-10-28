@@ -21,7 +21,7 @@ class DoctrineLoggerTest extends MockeryTestCase
     /** @var AuditEventInterface */
     private $event;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->logger = new DoctrineTestLogger($this->entityManager);
