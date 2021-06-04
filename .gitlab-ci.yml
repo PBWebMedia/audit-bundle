@@ -24,16 +24,6 @@ build:
       - app/config/parameters.yml
 
 test:
-  image: $CI_REGISTRY/backend/docker/images/php:7.4-cli
-  stage: test
-  dependencies:
-      - build
-  script:
-      - SYMFONY_DEPRECATIONS_HELPER=disabled vendor/phpunit/phpunit/phpunit -d memory_limit=512M
-  except:
-    - master
-
-test-coverage:
   image: $CI_REGISTRY/backend/docker/images/php:7.4-pcov-cli
   stage: test
   dependencies:
@@ -43,13 +33,11 @@ test-coverage:
   artifacts:
     paths:
       - coverage/
-  only:
-    - master
 
 pages:
   stage: deploy
   dependencies:
-      - test-coverage
+      - test
   script:
       - mv coverage public
   artifacts:
