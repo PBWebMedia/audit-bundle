@@ -1,4 +1,4 @@
-image: docker:latest
+image: $CI_REGISTRY/backend/docker/images/php:7.4-deploy
 
 stages:
   - build
