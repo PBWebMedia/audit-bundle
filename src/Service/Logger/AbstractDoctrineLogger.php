@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pbweb\AuditBundle\Service\Logger;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
-use Pbweb\AuditBundle\Event\Events;
+use Pbweb\AuditBundle\Event\LogAuditEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -12,8 +12,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 abstract class AbstractDoctrineLogger implements EventSubscriberInterface
 {
-    /** @var EntityManagerInterface */
-    protected $entityManager;
+    protected EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -23,17 +22,17 @@ abstract class AbstractDoctrineLogger implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            Events::LOG_EVENT => 'log',
+            LogAuditEvent::class => 'log',
         ];
     }
 
-    public function log(AuditEventInterface $event)
+    public function log(LogAuditEvent $logEvent): void
     {
-        $entity = $this->convertToEntity($event);
+        $entity = $this->convertToEntity($logEvent->getEvent());
 
         $this->entityManager->persist($entity);
         $this->entityManager->flush();
     }
 
-    abstract protected function convertToEntity(AuditEventInterface $event);
+    abstract protected function convertToEntity(AuditEventInterface $event): mixed;
 }

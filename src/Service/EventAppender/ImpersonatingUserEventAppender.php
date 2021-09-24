@@ -1,23 +1,20 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pbweb\AuditBundle\Service\EventAppender;
 
-use Pbweb\AuditBundle\Event\AuditEventInterface;
-use Pbweb\AuditBundle\Event\Events;
+use Pbweb\AuditBundle\Event\AppendAuditEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\Role\SwitchUserRole;
 
 /**
  * @copyright 2016 PB Web Media B.V.
  */
 class ImpersonatingUserEventAppender implements EventSubscriberInterface
 {
-    /** @var TokenStorageInterface */
-    private $tokenStorage;
-    /** @var AuthorizationCheckerInterface */
-    private $authorizationChecker;
+    private TokenStorageInterface $tokenStorage;
+    private AuthorizationCheckerInterface $authorizationChecker;
 
     public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authorizationChecker)
     {
@@ -28,12 +25,13 @@ class ImpersonatingUserEventAppender implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            Events::APPEND_EVENT => 'append',
+            AppendAuditEvent::class => 'append',
         ];
     }
 
-    public function append(AuditEventInterface $event)
+    public function append(AppendAuditEvent $appendEvent)
     {
+        $event = $appendEvent->getEvent();
         if ($event->getImpersonatingUser()) {
             return;
         }
@@ -46,12 +44,9 @@ class ImpersonatingUserEventAppender implements EventSubscriberInterface
             return;
         }
 
-        foreach ($this->tokenStorage->getToken()->getRoles() as $role) {
-            if ($role instanceof SwitchUserRole) {
-                $event->setImpersonatingUser($role->getSource()->getUsername());
-
-                return;
-            }
+        $token = $this->tokenStorage->getToken();
+        if ($token instanceof SwitchUserToken) {
+            $event->setImpersonatingUser($token->getOriginalToken()->getUsername());
         }
     }
 }

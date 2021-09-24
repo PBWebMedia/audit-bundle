@@ -1,9 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pbweb\AuditBundle\Service\EventAppender;
 
-use Pbweb\AuditBundle\Event\AuditEventInterface;
-use Pbweb\AuditBundle\Event\Events;
+use Pbweb\AuditBundle\Event\AppendAuditEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -12,8 +11,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class IpEventAppender implements EventSubscriberInterface
 {
-    /** @var RequestStack */
-    private $requestStack;
+    private RequestStack $requestStack;
 
     public function __construct(RequestStack $requestStack)
     {
@@ -23,12 +21,13 @@ class IpEventAppender implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            Events::APPEND_EVENT => 'append',
+            AppendAuditEvent::class => 'append',
         ];
     }
 
-    public function append(AuditEventInterface $event)
+    public function append(AppendAuditEvent $appendEvent)
     {
+        $event = $appendEvent->getEvent();
         if ($event->getIp()) {
             return;
         }

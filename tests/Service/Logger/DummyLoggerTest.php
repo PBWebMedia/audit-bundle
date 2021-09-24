@@ -1,36 +1,41 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Pbweb\AuditBundle\Service\Logger;
 
 use Mockery\Adapter\Phpunit\MockeryTestCase;
-use Mockery\Mock;
+use Pbweb\AuditBundle\Event\AuditEventInterface;
+use Pbweb\AuditBundle\Event\LogAuditEvent;
 use Pbweb\AuditBundle\Service\Logger\DummyLogger;
-use Symfony\Component\EventDispatcher\Event;
 
 /**
  * @copyright 2016 PB Web Media B.V.
  */
 class DummyLoggerTest extends MockeryTestCase
 {
+    private AuditEventInterface $event;
+
+    protected function setUp(): void
+    {
+        $this->event = \Mockery::mock(AuditEventInterface::class);
+    }
+
     public function testStopsPropagation()
     {
-        /** @var Mock|Event $event */
-        $event = \Mockery::mock(Event::class);
-        $event->shouldReceive('stopPropagation')->once();
+        $event = new LogAuditEvent($this->event);
 
         $logger = new DummyLogger();
         $logger->log($event);
+
+        $this->assertTrue($event->isPropagationStopped());
     }
 
     public function testCollectsEvents()
     {
-        /** @var Mock|Event $event */
-        $event = \Mockery::mock(Event::class);
-        $event->shouldIgnoreMissing();
+        $event = new LogAuditEvent($this->event);
 
         $logger = new DummyLogger();
         $logger->log($event);
 
-        $this->assertEquals([$event], $logger->getEventList());
+        $this->assertEquals([$this->event], $logger->getEventList());
     }
 }

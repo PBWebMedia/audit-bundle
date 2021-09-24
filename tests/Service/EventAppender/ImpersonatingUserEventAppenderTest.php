@@ -1,36 +1,30 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Pbweb\AuditBundle\Service\EventAppender;
 
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Mockery\Mock;
+use Pbweb\AuditBundle\Event\AppendAuditEvent;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Service\EventAppender\ImpersonatingUserEventAppender;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\Role\SwitchUserRole;
 
 /**
  * @copyright 2016 PB Web Media B.V.
  */
 class ImpersonatingUserEventAppenderTest extends MockeryTestCase
 {
-    /** @var ImpersonatingUserEventAppender */
-    private $appender;
-    /** @var Mock|TokenStorageInterface */
-    private $tokenStorage;
-    /** @var Mock|AuthorizationCheckerInterface */
-    private $authorizationChecker;
+    private ImpersonatingUserEventAppender $appender;
+    private Mock|TokenStorageInterface $tokenStorage;
+    private Mock|AuthorizationCheckerInterface $authorizationChecker;
 
-    /** @var Mock|TokenInterface */
-    private $token;
-    /** @var Mock|SwitchUserRole */
-    private $switchRole;
-    /** @var Mock|TokenInterface */
-    private $switchRoleSource;
-    /** @var Mock|AuditEventInterface */
-    private $event;
+    private Mock|AppendAuditEvent $appendEvent;
+    private Mock|AuditEventInterface $event;
+    private Mock|TokenInterface $token;
+    private Mock|TokenInterface $originalToken;
 
     protected function setUp(): void
     {
@@ -38,17 +32,17 @@ class ImpersonatingUserEventAppenderTest extends MockeryTestCase
         $this->authorizationChecker = \Mockery::mock(AuthorizationCheckerInterface::class);
         $this->appender = new ImpersonatingUserEventAppender($this->tokenStorage, $this->authorizationChecker);
 
-        $this->token = \Mockery::mock(TokenInterface::class);
-        $this->switchRole = \Mockery::mock(SwitchUserRole::class);
-        $this->switchRoleSource = \Mockery::mock(TokenInterface::class);
+        $this->token = \Mockery::mock(SwitchUserToken::class);
+        $this->originalToken = \Mockery::mock(SwitchUserToken::class);
+        $this->appendEvent = \Mockery::mock(AppendAuditEvent::class);
         $this->event = \Mockery::mock(AuditEventInterface::class);
 
+        $this->appendEvent->shouldReceive('getEvent')->andReturn($this->event)->byDefault();
         $this->event->shouldReceive('getImpersonatingUser')->andReturnNull()->byDefault();
         $this->tokenStorage->shouldReceive('getToken')->andReturn($this->token)->byDefault();
         $this->authorizationChecker->shouldReceive('isGranted')->andReturn(true)->byDefault();
-        $this->token->shouldReceive('getRoles')->andReturn([$this->switchRole])->byDefault();
-        $this->switchRole->shouldReceive('getSource')->andReturn($this->switchRoleSource)->byDefault();
-        $this->switchRoleSource->shouldReceive('getUsername')->andReturn('foo')->byDefault();
+        $this->token->shouldReceive('getOriginalToken')->andReturn($this->originalToken)->byDefault();
+        $this->originalToken->shouldReceive('getUsername')->andReturn('foo')->byDefault();
     }
 
     public function testSetsImpersonatingUser()
@@ -57,7 +51,7 @@ class ImpersonatingUserEventAppenderTest extends MockeryTestCase
             ->once()
             ->with('foo');
 
-        $this->appender->append($this->event);
+        $this->appender->append($this->appendEvent);
     }
 
     public function testIgnoresIfImpersonatingUserIsSet()
@@ -65,7 +59,7 @@ class ImpersonatingUserEventAppenderTest extends MockeryTestCase
         $this->event->shouldReceive('getImpersonatingUser')->andReturn('bla');
         $this->event->shouldReceive('setImpersonatingUser')->never();
 
-        $this->appender->append($this->event);
+        $this->appender->append($this->appendEvent);
     }
 
     public function testIgnoresNoToken()
@@ -73,17 +67,17 @@ class ImpersonatingUserEventAppenderTest extends MockeryTestCase
         $this->tokenStorage->shouldReceive('getToken')->andReturnNull();
         $this->event->shouldReceive('setImpersonatingUser')->never();
 
-        $this->appender->append($this->event);
+        $this->appender->append($this->appendEvent);
     }
 
     public function testIgnoresNotGrantedSwitchRole()
     {
         $this->authorizationChecker->shouldReceive('isGranted')
-            ->once()
             ->with('ROLE_PREVIOUS_ADMIN')
+            ->once()
             ->andReturnNull();
         $this->event->shouldReceive('setImpersonatingUser')->never();
 
-        $this->appender->append($this->event);
+        $this->appender->append($this->appendEvent);
     }
 }

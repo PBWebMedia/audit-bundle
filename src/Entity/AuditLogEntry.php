@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pbweb\AuditBundle\Entity;
 
@@ -10,60 +10,51 @@ use Doctrine\ORM\Mapping as ORM;
 class AuditLogEntry
 {
     /**
-     * @var int
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
-    protected $id;
+    protected ?int $id = null;
 
     /**
-     * @var \DateTime
      * @ORM\Column(type="datetime")
      */
-    protected $time;
+    protected ?\DateTime $time = null;
 
     /**
-     * @var string
      * @ORM\Column(type="string", length=10)
      */
-    protected $level;
+    protected ?string $level = null;
 
     /**
-     * @var string
      * @ORM\Column(type="string")
      */
-    protected $name;
+    protected ?string $name = null;
 
     /**
-     * @var string
      * @ORM\Column(type="string", length=20, nullable=true)
      */
-    protected $ip;
+    protected ?string $ip = null;
 
     /**
-     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $user;
+    protected ?string $user = null;
 
     /**
-     * @var string
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $impersonatingUser;
+    protected ?string $impersonatingUser = null;
 
     /**
-     * @var string
      * @ORM\Column(type="text", nullable=true)
      */
-    protected $description;
+    protected ?string $description = null;
 
     /**
-     * @var array
-     * @ORM\Column(type="json_array", nullable=true)
+     * @ORM\Column(type="json", nullable=true)
      */
-    protected $changeSet;
+    protected ?array $changeSet = null;
 
     public function __construct(string $level, string $name)
     {
@@ -72,10 +63,7 @@ class AuditLogEntry
         $this->time = new \DateTime();
     }
 
-    /**
-     * @return int|null
-     */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -85,11 +73,9 @@ class AuditLogEntry
         return $this->time;
     }
 
-    public function setTime(\DateTime $time): AuditLogEntry
+    public function setTime(\DateTime $time): void
     {
         $this->time = $time;
-
-        return $this;
     }
 
     public function getLevel(): string
@@ -97,11 +83,9 @@ class AuditLogEntry
         return $this->level;
     }
 
-    public function setLevel(string $level): AuditLogEntry
+    public function setLevel(string $level): void
     {
         $this->level = $level;
-
-        return $this;
     }
 
     public function getName(): string
@@ -109,11 +93,9 @@ class AuditLogEntry
         return $this->name;
     }
 
-    public function setName(string $name): AuditLogEntry
+    public function setName(string $name): void
     {
         $this->name = $name;
-
-        return $this;
     }
 
     public function getIp(): ?string
@@ -121,11 +103,9 @@ class AuditLogEntry
         return $this->ip;
     }
 
-    public function setIp(string $ip): AuditLogEntry
+    public function setIp(string $ip): void
     {
         $this->ip = $ip;
-
-        return $this;
     }
 
     public function getUser(): ?string
@@ -133,11 +113,9 @@ class AuditLogEntry
         return $this->user;
     }
 
-    public function setUser(string $user): AuditLogEntry
+    public function setUser(string $user): void
     {
         $this->user = $user;
-
-        return $this;
     }
 
     public function getImpersonatingUser(): ?string
@@ -145,11 +123,9 @@ class AuditLogEntry
         return $this->impersonatingUser;
     }
 
-    public function setImpersonatingUser(string $impersonatingUser): AuditLogEntry
+    public function setImpersonatingUser(string $impersonatingUser): void
     {
         $this->impersonatingUser = $impersonatingUser;
-
-        return $this;
     }
 
     public function getDescription(): ?string
@@ -157,11 +133,9 @@ class AuditLogEntry
         return $this->description;
     }
 
-    public function setDescription(string $description): AuditLogEntry
+    public function setDescription(string $description): void
     {
         $this->description = $description;
-
-        return $this;
     }
 
     public function getChangeSet(): ?array
@@ -169,10 +143,8 @@ class AuditLogEntry
         return $this->changeSet;
     }
 
-    public function setChangeSet(array $changeSet): AuditLogEntry
+    public function setChangeSet(array $changeSet): void
     {
         $this->changeSet = $changeSet;
-
-        return $this;
     }
 }

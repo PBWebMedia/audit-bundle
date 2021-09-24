@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Pbweb\AuditBundle\Service\Logger;
 
@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
+use Pbweb\AuditBundle\Event\LogAuditEvent;
 use Pbweb\AuditBundle\Service\Logger\AbstractDoctrineLogger;
 
 /**
@@ -13,20 +14,21 @@ use Pbweb\AuditBundle\Service\Logger\AbstractDoctrineLogger;
  */
 class DoctrineLoggerTest extends MockeryTestCase
 {
-    /** @var AbstractDoctrineLogger */
-    private $logger;
-    /** @var Mock|EntityManagerInterface */
-    private $entityManager;
+    private AbstractDoctrineLogger $logger;
+    private Mock|EntityManagerInterface $entityManager;
 
-    /** @var AuditEventInterface */
-    private $event;
+    private Mock|LogAuditEvent $logEvent;
+    private Mock|AuditEventInterface $event;
 
     protected function setUp(): void
     {
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->logger = new DoctrineTestLogger($this->entityManager);
 
+        $this->logEvent = \Mockery::mock(LogAuditEvent::class);
         $this->event = \Mockery::mock(AuditEventInterface::class);
+
+        $this->logEvent->shouldReceive('getEvent')->andReturn($this->event)->byDefault();
     }
 
     public function testPersistsAndFlushes()
@@ -37,6 +39,6 @@ class DoctrineLoggerTest extends MockeryTestCase
         $this->entityManager->shouldReceive('flush')
             ->once();
 
-        $this->logger->log($this->event);
+        $this->logger->log($this->logEvent);
     }
 }

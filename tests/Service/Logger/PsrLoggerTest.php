@@ -1,10 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Pbweb\AuditBundle\Service\Logger;
 
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
+use Pbweb\AuditBundle\Event\LogAuditEvent;
 use Pbweb\AuditBundle\Service\Logger\PsrLogger;
 use Psr\Log\LoggerInterface;
 
@@ -13,20 +14,21 @@ use Psr\Log\LoggerInterface;
  */
 class PsrLoggerTest extends MockeryTestCase
 {
-    /** @var Mock|LoggerInterface */
-    private $innerLogger;
-    /** @var PsrLogger */
-    private $logger;
+    private PsrLogger $logger;
+    private Mock|LoggerInterface $innerLogger;
 
-    /** @var Mock|AuditEventInterface */
-    private $event;
+    private Mock|LogAuditEvent $logEvent;
+    private Mock|AuditEventInterface $event;
 
     protected function setUp(): void
     {
         $this->innerLogger = \Mockery::mock(LoggerInterface::class);
         $this->logger = new PsrLogger($this->innerLogger);
 
+        $this->logEvent = \Mockery::mock(LogAuditEvent::class);
         $this->event = \Mockery::mock(AuditEventInterface::class);
+
+        $this->logEvent->shouldReceive('getEvent')->andReturn($this->event)->byDefault();
 
         $this->event->shouldReceive('getLevel')->andReturn('info')->byDefault();
         $this->event->shouldReceive('getName')->andReturn('foo')->byDefault();
@@ -53,8 +55,6 @@ class PsrLoggerTest extends MockeryTestCase
                 return true;
             }));
 
-        $this->logger->log($this->event);
+        $this->logger->log($this->logEvent);
     }
-
-
 }

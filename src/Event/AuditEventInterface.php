@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pbweb\AuditBundle\Event;
 
@@ -8,43 +8,16 @@ namespace Pbweb\AuditBundle\Event;
 interface AuditEventInterface
 {
     public function getTime(): \DateTime;
-
     public function getName(): string;
-
     public function getLevel(): string;
-
-    /**
-     * @return string|null
-     */
-    public function getDescription();
-
-    public function setDescription(string $description): AuditEventInterface;
-
-    /**
-     * @return string|null
-     */
-    public function getIp();
-
-    public function setIp(string $ip): AuditEventInterface;
-
-    /**
-     * @return string|null
-     */
-    public function getUser();
-
-    public function setUser(string $user): AuditEventInterface;
-
-    /**
-     * @return array|null
-     */
-    public function getImpersonatingUser();
-
-    public function setImpersonatingUser(string $impersonatingUser): AuditEventInterface;
-
-    /**
-     * @return array|null
-     */
-    public function getChangeSet();
-
-    public function setChangeSet(array $changeSet): AuditEventInterface;
+    public function getDescription(): ?string;
+    public function setDescription(string $description): void;
+    public function getIp(): ?string;
+    public function setIp(string $ip): void;
+    public function getUser(): ?string;
+    public function setUser(string $user): void;
+    public function getImpersonatingUser(): ?string;
+    public function setImpersonatingUser(string $impersonatingUser): void;
+    public function getChangeSet(): ?array;
+    public function setChangeSet(array $changeSet): void;
 }

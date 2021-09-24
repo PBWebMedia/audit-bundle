@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Pbweb\AuditBundle\EventListener;
 
@@ -16,19 +16,13 @@ use Pbweb\AuditBundle\Service\AuditLogInterface;
  */
 class DoctrineEntityEventListenerTest extends MockeryTestCase
 {
-    /** @var DoctrineEntityEventListener */
-    private $listener;
-    /** @var Mock|AuditLogInterface */
-    private $log;
+    private DoctrineEntityEventListener $listener;
+    private Mock|AuditLogInterface $log;
 
-    /** @var Mock|LifecycleEventArgs */
-    private $args;
-    /** @var Mock */
-    private $entity;
-    /** @var Mock|EntityManagerInterface */
-    private $entityManager;
-    /** @var Mock|UnitOfWork */
-    private $unitOfWork;
+    private Mock|LifecycleEventArgs $args;
+    private Mock|\stdClass $entity;
+    private Mock|EntityManagerInterface $entityManager;
+    private Mock|UnitOfWork $unitOfWork;
 
     protected function setUp(): void
     {
@@ -36,7 +30,7 @@ class DoctrineEntityEventListenerTest extends MockeryTestCase
         $this->listener = new DoctrineEntityEventListener($this->log);
 
         $this->args = \Mockery::mock(LifecycleEventArgs::class);
-        $this->entity = \Mockery::mock();
+        $this->entity = \Mockery::mock(\stdClass::class);
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->unitOfWork = \Mockery::mock(UnitOfWork::class);
 

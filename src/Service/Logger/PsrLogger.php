@@ -1,9 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pbweb\AuditBundle\Service\Logger;
 
-use Pbweb\AuditBundle\Event\AuditEventInterface;
-use Pbweb\AuditBundle\Event\Events;
+use Pbweb\AuditBundle\Event\LogAuditEvent;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -12,8 +11,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class PsrLogger implements EventSubscriberInterface
 {
-    /** @var LoggerInterface */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function __construct(LoggerInterface $logger)
     {
@@ -23,12 +21,13 @@ class PsrLogger implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            Events::LOG_EVENT => 'log',
+            LogAuditEvent::class => 'log',
         ];
     }
 
-    public function log(AuditEventInterface $event)
+    public function log(LogAuditEvent $logEvent): void
     {
+        $event = $logEvent->getEvent();
         $details = [
             'name' => $event->getName(),
             'description' => $event->getDescription(),

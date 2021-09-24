@@ -1,31 +1,23 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pbweb\AuditBundle\Event;
 
 use Psr\Log\LogLevel;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * @copyright 2016 PB Web Media B.V.
  */
 class AuditEvent extends Event implements AuditEventInterface
 {
-    /** @var \DateTime */
-    protected $time;
-    /** @var string */
-    protected $name;
-    /** @var string */
-    protected $level;
-    /** @var  string */
-    protected $ip;
-    /** @var string */
-    protected $user;
-    /** @var string */
-    protected $impersonatingUser;
-    /** @var string */
-    protected $description;
-    /** @var array */
-    protected $changeSet;
+    protected \DateTime $time;
+    protected string $name;
+    protected string $level;
+    protected ?string $ip = null;
+    protected ?string $user = null;
+    protected ?string $impersonatingUser = null;
+    protected ?string $description = null;
+    protected ?array $changeSet = null;
 
     public function __construct(string $name, $level = LogLevel::INFO)
     {
@@ -34,9 +26,6 @@ class AuditEvent extends Event implements AuditEventInterface
         $this->level = $level;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getTime(): \DateTime
     {
         return $this->time;
@@ -52,63 +41,53 @@ class AuditEvent extends Event implements AuditEventInterface
         return $this->level;
     }
 
-    public function getIp()
+    public function getIp(): ?string
     {
         return $this->ip;
     }
 
-    public function setIp(string $ip): AuditEventInterface
+    public function setIp(string $ip): void
     {
         $this->ip = $ip;
-
-        return $this;
     }
 
-    public function getUser()
+    public function getUser(): ?string
     {
         return $this->user;
     }
 
-    public function setUser(string $user): AuditEventInterface
+    public function setUser(string $user): void
     {
         $this->user = $user;
-
-        return $this;
     }
 
-    public function getImpersonatingUser()
+    public function getImpersonatingUser(): ?string
     {
         return $this->impersonatingUser;
     }
 
-    public function setImpersonatingUser(string $impersonatingUser): AuditEventInterface
+    public function setImpersonatingUser(string $impersonatingUser): void
     {
         $this->impersonatingUser = $impersonatingUser;
-
-        return $this;
     }
 
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    public function setDescription(string $description): AuditEventInterface
+    public function setDescription(string $description): void
     {
         $this->description = $description;
-
-        return $this;
     }
 
-    public function getChangeSet()
+    public function getChangeSet(): ?array
     {
         return $this->changeSet;
     }
 
-    public function setChangeSet(array $changeSet): AuditEventInterface
+    public function setChangeSet(array $changeSet): void
     {
         $this->changeSet = $changeSet;
-
-        return $this;
     }
 }

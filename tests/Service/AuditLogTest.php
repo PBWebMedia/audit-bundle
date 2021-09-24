@@ -1,12 +1,14 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Pbweb\AuditBundle\Service;
 
+use Hamcrest\Core\IsEqual;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Mockery\Mock;
+use Pbweb\AuditBundle\Event\AppendAuditEvent;
 use Pbweb\AuditBundle\Event\AuditEvent;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
-use Pbweb\AuditBundle\Event\Events;
+use Pbweb\AuditBundle\Event\LogAuditEvent;
 use Pbweb\AuditBundle\Service\AuditLog;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -15,13 +17,10 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  */
 class AuditLogTest extends MockeryTestCase
 {
-    /** @var AuditLog */
-    private $log;
-    /** @var Mock|EventDispatcherInterface */
-    private $dispatcher;
+    private AuditLog $log;
+    private Mock|EventDispatcherInterface $dispatcher;
 
-    /** @var Mock|AuditEventInterface */
-    private $event;
+    private Mock|AuditEventInterface $event;
 
     protected function setUp(): void
     {
@@ -37,30 +36,18 @@ class AuditLogTest extends MockeryTestCase
     public function testDispatchFlow()
     {
         $this->dispatcher->shouldReceive('dispatch')
+            ->with(IsEqual::equalTo(new AppendAuditEvent($this->event)))
             ->once()
-            ->with(Events::APPEND_EVENT, $this->event);
+            ->ordered();
         $this->dispatcher->shouldReceive('dispatch')
+            ->with($this->event)
             ->once()
-            ->with('pbw.event', $this->event);
+            ->ordered();
         $this->dispatcher->shouldReceive('dispatch')
+            ->with(IsEqual::equalTo(new LogAuditEvent($this->event)))
             ->once()
-            ->with(Events::LOG_EVENT, $this->event);
+            ->ordered();
 
         $this->log->log($this->event);
-    }
-
-    public function testLogSimple()
-    {
-        $this->dispatcher->shouldReceive('dispatch')
-            ->once()
-            ->with(Events::APPEND_EVENT, \Mockery::type(AuditEvent::class));
-        $this->dispatcher->shouldReceive('dispatch')
-            ->once()
-            ->with('pbw.simple', \Mockery::type(AuditEvent::class));
-        $this->dispatcher->shouldReceive('dispatch')
-            ->once()
-            ->with(Events::LOG_EVENT, \Mockery::type(AuditEvent::class));
-
-        $this->log->logSimple('pbw.simple');
     }
 }

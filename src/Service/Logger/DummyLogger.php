@@ -1,10 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pbweb\AuditBundle\Service\Logger;
 
 use Pbweb\AuditBundle\Event\AuditEventInterface;
-use Pbweb\AuditBundle\Event\Events;
-use Symfony\Component\EventDispatcher\Event;
+use Pbweb\AuditBundle\Event\LogAuditEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -13,23 +12,23 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class DummyLogger implements EventSubscriberInterface
 {
     /** @var AuditEventInterface[] */
-    private $eventList = [];
+    private array $eventList = [];
 
     public static function getSubscribedEvents()
     {
         return [
-            Events::LOG_EVENT => ['log', 100],
+            LogAuditEvent::class => ['log', 100],
         ];
     }
 
-    public function log(Event $event)
+    public function log(LogAuditEvent $logEvent): void
     {
-        $this->eventList[] = $event;
+        $this->eventList[] = $logEvent->getEvent();
 
-        $event->stopPropagation();
+        $logEvent->stopPropagation();
     }
 
-    public function getEventList()
+    public function getEventList(): array
     {
         return $this->eventList;
     }

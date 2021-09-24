@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Pbweb\AuditBundle\Service\Logger;
 
@@ -11,7 +11,7 @@ use Pbweb\AuditBundle\Service\Logger\AbstractDoctrineLogger;
  */
 class DoctrineTestLogger extends AbstractDoctrineLogger
 {
-    protected function convertToEntity(AuditEventInterface $event)
+    protected function convertToEntity(AuditEventInterface $event): mixed
     {
         return new Mock();
     }

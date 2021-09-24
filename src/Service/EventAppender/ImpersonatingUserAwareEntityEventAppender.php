@@ -1,10 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pbweb\AuditBundle\Service\EventAppender;
 
-use Pbweb\AuditBundle\Event\AuditEntityEvent;
-use Pbweb\AuditBundle\Event\AuditEventInterface;
-use Pbweb\AuditBundle\Event\Events;
+use Pbweb\AuditBundle\Event\AppendAuditEvent;
+use Pbweb\AuditBundle\Event\EntityAuditEvent;
 use Pbweb\AuditBundle\Model\ImpersonatingUserAwareInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -16,13 +15,14 @@ class ImpersonatingUserAwareEntityEventAppender implements EventSubscriberInterf
     public static function getSubscribedEvents()
     {
         return [
-            Events::APPEND_EVENT => 'append',
+            AppendAuditEvent::class => 'append',
         ];
     }
 
-    public function append(AuditEventInterface $event)
+    public function append(AppendAuditEvent $appendEvent)
     {
-        if ( ! $event instanceof AuditEntityEvent) {
+        $event = $appendEvent->getEvent();
+        if ( ! $event instanceof EntityAuditEvent) {
             return;
         }
 
