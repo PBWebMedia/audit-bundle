@@ -34,8 +34,8 @@ class DoctrineEntityEventListenerTest extends MockeryTestCase
         $this->entityManager = \Mockery::mock(EntityManagerInterface::class);
         $this->unitOfWork = \Mockery::mock(UnitOfWork::class);
 
-        $this->args->shouldReceive('getEntity')->andReturn($this->entity)->byDefault();
-        $this->args->shouldReceive('getEntityManager')->andReturn($this->entityManager)->byDefault();
+        $this->args->shouldReceive('getObject')->andReturn($this->entity)->byDefault();
+        $this->args->shouldReceive('getObjectManager')->andReturn($this->entityManager)->byDefault();
         $this->entityManager->shouldIgnoreMissing($this->entityManager);
         $this->entityManager->shouldReceive('getUnitOfWork')->andReturn($this->unitOfWork)->byDefault();
         $this->unitOfWork->shouldReceive('getEntityChangeSet')->andReturn(['foo' => 'bar'])->byDefault();
@@ -43,7 +43,7 @@ class DoctrineEntityEventListenerTest extends MockeryTestCase
         $this->log->shouldReceive('log')->byDefault();
     }
 
-    public function testPostPersistLogs()
+    public function testPostPersistLogs(): void
     {
         $this->log->shouldReceive('log')
             ->once()
@@ -57,7 +57,7 @@ class DoctrineEntityEventListenerTest extends MockeryTestCase
         $this->listener->postPersist($this->args);
     }
 
-    public function testPostUpdateLogs()
+    public function testPostUpdateLogs(): void
     {
         $this->log->shouldReceive('log')
             ->once()
@@ -71,7 +71,7 @@ class DoctrineEntityEventListenerTest extends MockeryTestCase
         $this->listener->postUpdate($this->args);
     }
 
-    public function testPreRemoveLogs()
+    public function testPreRemoveLogs(): void
     {
         $this->log->shouldReceive('log')
             ->once()
@@ -85,7 +85,7 @@ class DoctrineEntityEventListenerTest extends MockeryTestCase
         $this->listener->preRemove($this->args);
     }
 
-    public function testIgnoresConstructorLogEntityFqdn()
+    public function testIgnoresConstructorLogEntityFqdn(): void
     {
         $listener = new DoctrineEntityEventListener($this->log, get_class($this->entity));
 

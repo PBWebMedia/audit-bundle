@@ -12,14 +12,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 abstract class AbstractDoctrineLogger implements EventSubscriberInterface
 {
-    protected EntityManagerInterface $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(
+        protected readonly EntityManagerInterface $entityManager,
+    )
     {
-        $this->entityManager = $entityManager;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             LogAuditEvent::class => 'log',

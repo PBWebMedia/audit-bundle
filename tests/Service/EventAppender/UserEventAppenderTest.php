@@ -34,10 +34,10 @@ class UserEventAppenderTest extends MockeryTestCase
         $this->appendEvent->shouldReceive('getEvent')->andReturn($this->event)->byDefault();
         $this->event->shouldReceive('getUser')->andReturnNull()->byDefault();
         $this->tokenStorage->shouldReceive('getToken')->andReturn($this->token)->byDefault();
-        $this->token->shouldReceive('getUsername')->andReturn('foo')->byDefault();
+        $this->token->shouldReceive('getUserIdentifier')->andReturn('foo')->byDefault();
     }
 
-    public function testSetsUser()
+    public function testSetsUser(): void
     {
         $this->event->shouldReceive('setUser')
             ->once()
@@ -46,7 +46,7 @@ class UserEventAppenderTest extends MockeryTestCase
         $this->appender->append($this->appendEvent);
     }
 
-    public function testIgnoresIfUserSet()
+    public function testIgnoresIfUserSet(): void
     {
         $this->event->shouldReceive('getUser')->andReturn('foo');
         $this->event->shouldReceive('setUser')->never();
@@ -54,7 +54,7 @@ class UserEventAppenderTest extends MockeryTestCase
         $this->appender->append($this->appendEvent);
     }
 
-    public function testSetsUserToAnonymousIfNoToken()
+    public function testSetsUserToAnonymousIfNoToken(): void
     {
         $this->tokenStorage->shouldReceive('getToken')->andReturnNull();
         $this->event->shouldReceive('setUser')

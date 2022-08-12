@@ -10,7 +10,7 @@ use Pbweb\AuditBundle\Event\AuditEvent;
  */
 class AuditEventTest extends MockeryTestCase
 {
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $event = new AuditEvent('name', 'debug');
         $this->assertEquals('name', $event->getName());
@@ -18,7 +18,7 @@ class AuditEventTest extends MockeryTestCase
         $this->assertInstanceOf(\DateTime::class, $event->getTime());
     }
 
-    public function testGettersSetters()
+    public function testGettersSetters(): void
     {
         $event = new AuditEvent('name', 'info');
 
@@ -37,5 +37,4 @@ class AuditEventTest extends MockeryTestCase
         $event->setChangeSet(['foo' => 'bar']);
         $this->assertEquals(['foo' => 'bar'], $event->getChangeSet());
     }
-
 }

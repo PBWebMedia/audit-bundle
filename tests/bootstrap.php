@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);$file = __DIR__ . '/../../../../vendor/autoload.php';
+<?php declare(strict_types=1);
+
+$file = __DIR__ . '/../../../../vendor/autoload.php';
 if ( ! file_exists($file)) {
     $file = __DIR__ . '/../vendor/autoload.php';
 }

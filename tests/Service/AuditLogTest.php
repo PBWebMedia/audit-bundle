@@ -33,7 +33,7 @@ class AuditLogTest extends MockeryTestCase
         $this->dispatcher->shouldReceive('dispatch')->byDefault();
     }
 
-    public function testDispatchFlow()
+    public function testDispatchFlow(): void
     {
         $this->dispatcher->shouldReceive('dispatch')
             ->with(IsEqual::equalTo(new AppendAuditEvent($this->event)))

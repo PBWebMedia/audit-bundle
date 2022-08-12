@@ -31,7 +31,7 @@ class DoctrineLoggerTest extends MockeryTestCase
         $this->logEvent->shouldReceive('getEvent')->andReturn($this->event)->byDefault();
     }
 
-    public function testPersistsAndFlushes()
+    public function testPersistsAndFlushes(): void
     {
         $this->entityManager->shouldReceive('persist')
             ->once()

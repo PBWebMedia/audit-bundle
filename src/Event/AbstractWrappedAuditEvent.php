@@ -10,11 +10,10 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 abstract class AbstractWrappedAuditEvent extends Event
 {
-    private AuditEventInterface $event;
-
-    public function __construct(AuditEventInterface $event)
+    public function __construct(
+        private readonly AuditEventInterface $event,
+    )
     {
-        $this->event = $event;
     }
 
     public function getEvent(): AuditEventInterface

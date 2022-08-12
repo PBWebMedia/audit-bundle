@@ -11,21 +11,20 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class IpEventAppender implements EventSubscriberInterface
 {
-    private RequestStack $requestStack;
-
-    public function __construct(RequestStack $requestStack)
+    public function __construct(
+        private readonly RequestStack $requestStack,
+    )
     {
-        $this->requestStack = $requestStack;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             AppendAuditEvent::class => 'append',
         ];
     }
 
-    public function append(AppendAuditEvent $appendEvent)
+    public function append(AppendAuditEvent $appendEvent): void
     {
         $event = $appendEvent->getEvent();
         if ($event->getIp()) {

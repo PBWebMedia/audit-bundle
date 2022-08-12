@@ -13,23 +13,21 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  */
 class ImpersonatingUserEventAppender implements EventSubscriberInterface
 {
-    private TokenStorageInterface $tokenStorage;
-    private AuthorizationCheckerInterface $authorizationChecker;
-
-    public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authorizationChecker)
+    public function __construct(
+        private readonly TokenStorageInterface $tokenStorage,
+        private readonly AuthorizationCheckerInterface $authorizationChecker,
+    )
     {
-        $this->tokenStorage = $tokenStorage;
-        $this->authorizationChecker = $authorizationChecker;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             AppendAuditEvent::class => 'append',
         ];
     }
 
-    public function append(AppendAuditEvent $appendEvent)
+    public function append(AppendAuditEvent $appendEvent): void
     {
         $event = $appendEvent->getEvent();
         if ($event->getImpersonatingUser()) {
@@ -40,7 +38,7 @@ class ImpersonatingUserEventAppender implements EventSubscriberInterface
             return;
         }
 
-        if ( ! $this->authorizationChecker->isGranted('ROLE_PREVIOUS_ADMIN')) {
+        if ( ! $this->authorizationChecker->isGranted('IS_IMPERSONATOR')) {
             return;
         }
 

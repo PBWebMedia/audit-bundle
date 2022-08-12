@@ -37,7 +37,7 @@ class IpEventAppenderTest extends MockeryTestCase
         $this->request->shouldReceive('getClientIp')->andReturn('127.0.0.1')->byDefault();
     }
 
-    public function testSetsIp()
+    public function testSetsIp(): void
     {
         $this->event->shouldReceive('setIp')
             ->once()
@@ -46,7 +46,7 @@ class IpEventAppenderTest extends MockeryTestCase
         $this->appender->append($this->appendEvent);
     }
 
-    public function testIgnoresIfIpSet()
+    public function testIgnoresIfIpSet(): void
     {
         $this->event->shouldReceive('getIp')->andReturn('127.0.0.1');
         $this->event->shouldReceive('setIp')->never();
@@ -54,7 +54,7 @@ class IpEventAppenderTest extends MockeryTestCase
         $this->appender->append($this->appendEvent);
     }
 
-    public function testIgnoresIfNoRequest()
+    public function testIgnoresIfNoRequest(): void
     {
         $this->requestStack->shouldReceive('getCurrentRequest')->andReturnNull();
         $this->event->shouldReceive('setIp')->never();

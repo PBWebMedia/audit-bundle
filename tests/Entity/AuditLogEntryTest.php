@@ -10,7 +10,7 @@ use Pbweb\AuditBundle\Entity\AuditLogEntry;
  */
 class AuditLogEntryTest extends MockeryTestCase
 {
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $entry = new AuditLogEntry('debug', 'name');
         $this->assertEquals('debug', $entry->getLevel());
@@ -18,7 +18,7 @@ class AuditLogEntryTest extends MockeryTestCase
         $this->assertInstanceOf(\DateTime::class, $entry->getTime());
     }
 
-    public function testGettersSetters()
+    public function testGettersSetters(): void
     {
         $entry = new AuditLogEntry('debug', 'name');
 

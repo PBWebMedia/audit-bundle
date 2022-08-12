@@ -12,14 +12,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class ImpersonatingUserAwareEntityEventAppender implements EventSubscriberInterface
 {
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             AppendAuditEvent::class => 'append',
         ];
     }
 
-    public function append(AppendAuditEvent $appendEvent)
+    public function append(AppendAuditEvent $appendEvent): void
     {
         $event = $appendEvent->getEvent();
         if ( ! $event instanceof EntityAuditEvent) {

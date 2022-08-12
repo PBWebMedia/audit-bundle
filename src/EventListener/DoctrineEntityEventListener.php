@@ -22,7 +22,7 @@ class DoctrineEntityEventListener implements EventSubscriber
         $this->logEntityFqdn = $logEntityFqdn;
     }
 
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             'postPersist',
@@ -37,8 +37,8 @@ class DoctrineEntityEventListener implements EventSubscriber
             return;
         }
 
-        $event = new EntityAuditEvent('pbweb_audit.entity_insert', $args->getEntity());
-        $event->setDescription('inserted ' . get_class($args->getEntity()));
+        $event = new EntityAuditEvent('pbweb_audit.entity_insert', $args->getObject());
+        $event->setDescription('inserted ' . get_class($args->getObject()));
         $event->setChangeSet($this->getChangeSet($args));
 
         $this->log->log($event);
@@ -50,8 +50,8 @@ class DoctrineEntityEventListener implements EventSubscriber
             return;
         }
 
-        $event = new EntityAuditEvent('pbweb_audit.entity_update', $args->getEntity());
-        $event->setDescription('updated ' . get_class($args->getEntity()));
+        $event = new EntityAuditEvent('pbweb_audit.entity_update', $args->getObject());
+        $event->setDescription('updated ' . get_class($args->getObject()));
         $event->setChangeSet($this->getChangeSet($args));
 
         $this->log->log($event);
@@ -63,8 +63,8 @@ class DoctrineEntityEventListener implements EventSubscriber
             return;
         }
 
-        $event = new EntityAuditEvent('pbweb_audit.entity_remove', $args->getEntity());
-        $event->setDescription('removed ' . get_class($args->getEntity()));
+        $event = new EntityAuditEvent('pbweb_audit.entity_remove', $args->getObject());
+        $event->setDescription('removed ' . get_class($args->getObject()));
         $event->setChangeSet($this->getChangeSet($args));
 
         $this->log->log($event);
@@ -72,8 +72,8 @@ class DoctrineEntityEventListener implements EventSubscriber
 
     protected function getChangeSet(LifecycleEventArgs $args): array
     {
-        $entity = $args->getEntity();
-        $unitOfWork = $args->getEntityManager()->getUnitOfWork();
+        $entity = $args->getObject();
+        $unitOfWork = $args->getObjectManager()->getUnitOfWork();
 
         return array_merge(
             $unitOfWork->getEntityChangeSet($entity),
@@ -102,6 +102,6 @@ class DoctrineEntityEventListener implements EventSubscriber
 
     protected function isAuditLogEntity(LifecycleEventArgs $args): bool
     {
-        return get_class($args->getEntity()) == $this->logEntityFqdn;
+        return get_class($args->getObject()) == $this->logEntityFqdn;
     }
 }

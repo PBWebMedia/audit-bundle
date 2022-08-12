@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class PbwebAuditExtensionTest extends MockeryTestCase
 {
-    public function testRoot()
+    public function testRoot(): void
     {
         $config = [[
             'load_default_event_appenders' => false,
@@ -29,7 +29,7 @@ class PbwebAuditExtensionTest extends MockeryTestCase
             if ($id == 'service_container') {
                 continue;
             }
-            if (strpos($id, '\\') !== false) {
+            if (str_contains($id, '\\')) {
                 $this->assertStringStartsWith('Pbweb\\AuditBundle\\', $id);
 
                 continue;
@@ -37,7 +37,7 @@ class PbwebAuditExtensionTest extends MockeryTestCase
             $this->assertStringStartsWith($root, $id);
         }
         foreach (array_keys($container->getAliases()) as $id) {
-            if (strpos($id, '\\') !== false) {
+            if (str_contains($id, '\\')) {
                 continue;
             }
             $this->assertStringStartsWith($root, $id);

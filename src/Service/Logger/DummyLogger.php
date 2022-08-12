@@ -14,7 +14,7 @@ class DummyLogger implements EventSubscriberInterface
     /** @var AuditEventInterface[] */
     private array $eventList = [];
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             LogAuditEvent::class => ['log', 100],

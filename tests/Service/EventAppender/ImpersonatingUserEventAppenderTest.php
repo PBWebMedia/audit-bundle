@@ -45,7 +45,7 @@ class ImpersonatingUserEventAppenderTest extends MockeryTestCase
         $this->originalToken->shouldReceive('getUsername')->andReturn('foo')->byDefault();
     }
 
-    public function testSetsImpersonatingUser()
+    public function testSetsImpersonatingUser(): void
     {
         $this->event->shouldReceive('setImpersonatingUser')
             ->once()
@@ -54,7 +54,7 @@ class ImpersonatingUserEventAppenderTest extends MockeryTestCase
         $this->appender->append($this->appendEvent);
     }
 
-    public function testIgnoresIfImpersonatingUserIsSet()
+    public function testIgnoresIfImpersonatingUserIsSet(): void
     {
         $this->event->shouldReceive('getImpersonatingUser')->andReturn('bla');
         $this->event->shouldReceive('setImpersonatingUser')->never();
@@ -62,7 +62,7 @@ class ImpersonatingUserEventAppenderTest extends MockeryTestCase
         $this->appender->append($this->appendEvent);
     }
 
-    public function testIgnoresNoToken()
+    public function testIgnoresNoToken(): void
     {
         $this->tokenStorage->shouldReceive('getToken')->andReturnNull();
         $this->event->shouldReceive('setImpersonatingUser')->never();
@@ -70,10 +70,10 @@ class ImpersonatingUserEventAppenderTest extends MockeryTestCase
         $this->appender->append($this->appendEvent);
     }
 
-    public function testIgnoresNotGrantedSwitchRole()
+    public function testIgnoresNotGrantedSwitchRole(): void
     {
         $this->authorizationChecker->shouldReceive('isGranted')
-            ->with('ROLE_PREVIOUS_ADMIN')
+            ->with('IS_IMPERSONATOR')
             ->once()
             ->andReturnNull();
         $this->event->shouldReceive('setImpersonatingUser')->never();

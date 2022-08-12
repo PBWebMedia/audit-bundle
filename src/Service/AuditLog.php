@@ -12,11 +12,10 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
  */
 class AuditLog implements AuditLogInterface
 {
-    private EventDispatcherInterface $dispatcher;
-
-    public function __construct(EventDispatcherInterface $dispatcher)
+    public function __construct(
+        private readonly EventDispatcherInterface $dispatcher,
+    )
     {
-        $this->dispatcher = $dispatcher;
     }
 
     public function log(AuditEventInterface $event): void

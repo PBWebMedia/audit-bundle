@@ -19,7 +19,7 @@ class DummyLoggerTest extends MockeryTestCase
         $this->event = \Mockery::mock(AuditEventInterface::class);
     }
 
-    public function testStopsPropagation()
+    public function testStopsPropagation(): void
     {
         $event = new LogAuditEvent($this->event);
 
@@ -29,7 +29,7 @@ class DummyLoggerTest extends MockeryTestCase
         $this->assertTrue($event->isPropagationStopped());
     }
 
-    public function testCollectsEvents()
+    public function testCollectsEvents(): void
     {
         $event = new LogAuditEvent($this->event);
 

@@ -35,7 +35,7 @@ class ImpersonatingUserAwareEntityEventAppenderTest extends MockeryTestCase
         $this->event->shouldReceive('setImpersonatingUser')->byDefault();
     }
 
-    public function testSetsImpUser()
+    public function testSetsImpUser(): void
     {
         $this->event->shouldReceive('setImpersonatingUser')
             ->once()
@@ -44,7 +44,7 @@ class ImpersonatingUserAwareEntityEventAppenderTest extends MockeryTestCase
         $this->appender->append($this->appendEvent);
     }
 
-    public function testIgnoresWrongEvents()
+    public function testIgnoresWrongEvents(): void
     {
         /** @var Mock|AuditEventInterface $event */
         $event = \Mockery::mock(AuditEventInterface::class);
@@ -54,9 +54,9 @@ class ImpersonatingUserAwareEntityEventAppenderTest extends MockeryTestCase
         $this->appender->append($this->appendEvent);
     }
 
-    public function testIgnoresWrongEntity()
+    public function testIgnoresWrongEntity(): void
     {
-        $entity = new Mock(\stdClass::class);
+        $entity = new Mock();
         $this->event->shouldReceive('getEntity')->andReturn($entity);
         $this->event->shouldReceive('setImpersonatingUser')->never();
 

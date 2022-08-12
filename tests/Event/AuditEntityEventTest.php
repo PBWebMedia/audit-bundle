@@ -11,7 +11,7 @@ use Pbweb\AuditBundle\Event\EntityAuditEvent;
  */
 class AuditEntityEventTest extends MockeryTestCase
 {
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $entity = new Mock();
         $event = new EntityAuditEvent('name', $entity, 'debug');

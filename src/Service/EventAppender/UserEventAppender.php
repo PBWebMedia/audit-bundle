@@ -11,21 +11,20 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class UserEventAppender implements EventSubscriberInterface
 {
-    private TokenStorageInterface $tokenStorage;
-
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct(
+        private readonly TokenStorageInterface $tokenStorage,
+    )
     {
-        $this->tokenStorage = $tokenStorage;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             AppendAuditEvent::class => 'append',
         ];
     }
 
-    public function append(AppendAuditEvent $appendEvent)
+    public function append(AppendAuditEvent $appendEvent): void
     {
         $event = $appendEvent->getEvent();
         if ($event->getUser()) {
@@ -36,7 +35,7 @@ class UserEventAppender implements EventSubscriberInterface
 
         $token = $this->tokenStorage->getToken();
         if ($token) {
-            $user = $token->getUsername();
+            $user = $token->getUserIdentifier();
         }
 
         $event->setUser($user);

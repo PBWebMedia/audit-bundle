@@ -3,7 +3,6 @@
 namespace Tests\Pbweb\AuditBundle\Event;
 
 use Mockery\Adapter\Phpunit\MockeryTestCase;
-use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AppendAuditEvent;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 
@@ -12,9 +11,8 @@ use Pbweb\AuditBundle\Event\AuditEventInterface;
  */
 class AppendAuditEventTest extends MockeryTestCase
 {
-    public function test()
+    public function test(): void
     {
-        /** @var Mock|AuditEventInterface */
         $auditEvent = \Mockery::mock(AuditEventInterface::class);
         $event = new AppendAuditEvent($auditEvent);
         $this->assertSame($auditEvent, $event->getEvent());

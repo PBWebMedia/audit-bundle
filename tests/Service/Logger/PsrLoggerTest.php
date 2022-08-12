@@ -39,7 +39,7 @@ class PsrLoggerTest extends MockeryTestCase
         $this->event->shouldReceive('getChangeSet')->andReturn(['key' => 'value'])->byDefault();
     }
 
-    public function testLogs()
+    public function testLogs(): void
     {
         $this->innerLogger->shouldReceive('log')
             ->once()
