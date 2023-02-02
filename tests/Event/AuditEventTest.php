@@ -5,9 +5,6 @@ namespace Tests\Pbweb\AuditBundle\Event;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Pbweb\AuditBundle\Event\AuditEvent;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class AuditEventTest extends MockeryTestCase
 {
     public function testConstructor(): void

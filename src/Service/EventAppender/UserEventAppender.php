@@ -6,9 +6,6 @@ use Pbweb\AuditBundle\Event\AppendAuditEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class UserEventAppender implements EventSubscriberInterface
 {
     public function __construct(

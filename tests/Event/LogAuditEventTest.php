@@ -6,9 +6,6 @@ use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Event\LogAuditEvent;
 
-/**
- * @copyright 2021 PB Web Media B.V.
- */
 class LogAuditEventTest extends MockeryTestCase
 {
     public function test(): void

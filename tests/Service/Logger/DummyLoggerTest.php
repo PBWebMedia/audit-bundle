@@ -7,9 +7,6 @@ use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Event\LogAuditEvent;
 use Pbweb\AuditBundle\Service\Logger\DummyLogger;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class DummyLoggerTest extends MockeryTestCase
 {
     private AuditEventInterface $event;

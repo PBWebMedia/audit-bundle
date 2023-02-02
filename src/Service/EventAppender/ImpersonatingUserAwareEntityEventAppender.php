@@ -7,9 +7,6 @@ use Pbweb\AuditBundle\Event\EntityAuditEvent;
 use Pbweb\AuditBundle\Model\ImpersonatingUserAwareInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class ImpersonatingUserAwareEntityEventAppender implements EventSubscriberInterface
 {
     public static function getSubscribedEvents(): array

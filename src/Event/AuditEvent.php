@@ -5,9 +5,6 @@ namespace Pbweb\AuditBundle\Event;
 use Psr\Log\LogLevel;
 use Symfony\Contracts\EventDispatcher\Event;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class AuditEvent extends Event implements AuditEventInterface
 {
     protected \DateTime $time;

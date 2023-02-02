@@ -9,9 +9,6 @@ use Pbweb\AuditBundle\Event\LogAuditEvent;
 use Pbweb\AuditBundle\Service\Logger\PsrLogger;
 use Psr\Log\LoggerInterface;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class PsrLoggerTest extends MockeryTestCase
 {
     private PsrLogger $logger;

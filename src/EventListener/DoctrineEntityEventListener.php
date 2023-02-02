@@ -8,9 +8,6 @@ use Doctrine\ORM\PersistentCollection;
 use Pbweb\AuditBundle\Event\EntityAuditEvent;
 use Pbweb\AuditBundle\Service\AuditLogInterface;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class DoctrineEntityEventListener implements EventSubscriber
 {
     private AuditLogInterface $log;

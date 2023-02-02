@@ -4,9 +4,6 @@ namespace Pbweb\AuditBundle\Event;
 
 use Psr\Log\LogLevel;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class EntityAuditEvent extends AuditEvent
 {
     protected mixed $entity;

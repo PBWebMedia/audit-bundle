@@ -8,9 +8,6 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class ImpersonatingUserEventAppender implements EventSubscriberInterface
 {
     public function __construct(

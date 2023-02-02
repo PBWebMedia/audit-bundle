@@ -10,9 +10,6 @@ use Pbweb\AuditBundle\Event\EntityAuditEvent;
 use Pbweb\AuditBundle\Model\ImpersonatingUserAwareInterface;
 use Pbweb\AuditBundle\Service\EventAppender\ImpersonatingUserAwareEntityEventAppender;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class ImpersonatingUserAwareEntityEventAppenderTest extends MockeryTestCase
 {
     private ImpersonatingUserAwareEntityEventAppender $appender;

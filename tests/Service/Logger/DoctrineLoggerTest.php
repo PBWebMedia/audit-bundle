@@ -9,9 +9,6 @@ use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Event\LogAuditEvent;
 use Pbweb\AuditBundle\Service\Logger\AbstractDoctrineLogger;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class DoctrineLoggerTest extends MockeryTestCase
 {
     private AbstractDoctrineLogger $logger;

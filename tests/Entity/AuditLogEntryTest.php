@@ -5,9 +5,6 @@ namespace Tests\Pbweb\AuditBundle\Entity;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Pbweb\AuditBundle\Entity\AuditLogEntry;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class AuditLogEntryTest extends MockeryTestCase
 {
     public function testConstructor(): void

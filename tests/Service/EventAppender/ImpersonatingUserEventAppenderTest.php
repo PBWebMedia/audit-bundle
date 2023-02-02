@@ -12,9 +12,6 @@ use Symfony\Component\Security\Core\Authentication\Token\SwitchUserToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class ImpersonatingUserEventAppenderTest extends MockeryTestCase
 {
     private ImpersonatingUserEventAppender $appender;

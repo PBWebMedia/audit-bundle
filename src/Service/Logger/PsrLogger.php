@@ -6,9 +6,6 @@ use Pbweb\AuditBundle\Event\LogAuditEvent;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class PsrLogger implements EventSubscriberInterface
 {
     public function __construct(

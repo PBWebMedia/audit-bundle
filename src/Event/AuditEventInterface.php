@@ -2,9 +2,6 @@
 
 namespace Pbweb\AuditBundle\Event;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 interface AuditEventInterface
 {
     public function getTime(): \DateTime;

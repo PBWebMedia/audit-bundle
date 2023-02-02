@@ -4,9 +4,6 @@ namespace Pbweb\AuditBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class AuditLogEntry
 {
     #[ORM\Id]

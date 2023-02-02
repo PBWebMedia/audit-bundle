@@ -7,9 +7,6 @@ use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Event\LogAuditEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class AuditLog implements AuditLogInterface
 {
     public function __construct(

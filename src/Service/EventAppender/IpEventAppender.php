@@ -6,9 +6,6 @@ use Pbweb\AuditBundle\Event\AppendAuditEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class IpEventAppender implements EventSubscriberInterface
 {
     public function __construct(

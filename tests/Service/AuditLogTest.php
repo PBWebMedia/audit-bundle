@@ -12,9 +12,6 @@ use Pbweb\AuditBundle\Event\LogAuditEvent;
 use Pbweb\AuditBundle\Service\AuditLog;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class AuditLogTest extends MockeryTestCase
 {
     private AuditLog $log;

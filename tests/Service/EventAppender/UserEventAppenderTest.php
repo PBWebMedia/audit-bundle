@@ -10,9 +10,6 @@ use Pbweb\AuditBundle\Service\EventAppender\UserEventAppender;
 use Prophecy\Argument\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class UserEventAppenderTest extends MockeryTestCase
 {
     private UserEventAppender $appender;

@@ -6,9 +6,6 @@ use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Pbweb\AuditBundle\DependencyInjection\PbwebAuditExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class PbwebAuditExtensionTest extends MockeryTestCase
 {
     public function testRoot(): void

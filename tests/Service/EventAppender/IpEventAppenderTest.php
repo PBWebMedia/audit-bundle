@@ -10,9 +10,6 @@ use Pbweb\AuditBundle\Service\EventAppender\IpEventAppender;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class IpEventAppenderTest extends MockeryTestCase
 {
     private IpEventAppender $appender;

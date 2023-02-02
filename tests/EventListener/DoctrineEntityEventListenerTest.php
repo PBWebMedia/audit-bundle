@@ -11,9 +11,6 @@ use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\EventListener\DoctrineEntityEventListener;
 use Pbweb\AuditBundle\Service\AuditLogInterface;
 
-/**
- * @copyright 2016 PB Web Media B.V.
- */
 class DoctrineEntityEventListenerTest extends MockeryTestCase
 {
     private DoctrineEntityEventListener $listener;
