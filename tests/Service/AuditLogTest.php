@@ -2,8 +2,8 @@
 
 namespace Tests\Pbweb\AuditBundle\Service;
 
-use Hamcrest\Core\IsEqual;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
+use Mockery\Matcher\IsEqual;
 use Mockery\Mock;
 use Pbweb\AuditBundle\Event\AppendAuditEvent;
 use Pbweb\AuditBundle\Event\AuditEvent;
@@ -33,7 +33,7 @@ class AuditLogTest extends MockeryTestCase
     public function testDispatchFlow(): void
     {
         $this->dispatcher->shouldReceive('dispatch')
-            ->with(IsEqual::equalTo(new AppendAuditEvent($this->event)))
+            ->with(new IsEqual(new AppendAuditEvent($this->event)))
             ->once()
             ->ordered();
         $this->dispatcher->shouldReceive('dispatch')
@@ -41,7 +41,7 @@ class AuditLogTest extends MockeryTestCase
             ->once()
             ->ordered();
         $this->dispatcher->shouldReceive('dispatch')
-            ->with(IsEqual::equalTo(new LogAuditEvent($this->event)))
+            ->with(new IsEqual(new LogAuditEvent($this->event)))
             ->once()
             ->ordered();
 
