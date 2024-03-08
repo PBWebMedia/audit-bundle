@@ -72,7 +72,7 @@ class ImpersonatingUserEventAppenderTest extends MockeryTestCase
         $this->authorizationChecker->shouldReceive('isGranted')
             ->with('IS_IMPERSONATOR')
             ->once()
-            ->andReturnNull();
+            ->andReturn(false);
         $this->event->shouldReceive('setImpersonatingUser')->never();
 
         $this->appender->append($this->appendEvent);
