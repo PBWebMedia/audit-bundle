@@ -3,8 +3,8 @@
 namespace Pbweb\AuditBundle\EventListener;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\PersistentCollection;
+use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Pbweb\AuditBundle\Event\EntityAuditEvent;
 use Pbweb\AuditBundle\Service\AuditLogInterface;
 

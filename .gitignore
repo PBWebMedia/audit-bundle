@@ -8,4 +8,5 @@
 /.idea/dataSources.*
 /.idea/dataSources
 /.idea/dictionaries/*
+/.idea/php-test-framework.xml
 .idea/dbnavigator.xml
