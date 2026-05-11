@@ -25,6 +25,7 @@ class DummyLogger implements EventSubscriberInterface
         $logEvent->stopPropagation();
     }
 
+    /** @return AuditEventInterface[] */
     public function getEventList(): array
     {
         return $this->eventList;

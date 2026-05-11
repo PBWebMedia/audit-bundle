@@ -3,6 +3,7 @@
 namespace Pbweb\AuditBundle\EventListener;
 
 use Doctrine\Common\EventSubscriber;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\PersistentCollection;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Pbweb\AuditBundle\Event\EntityAuditEvent;
@@ -28,6 +29,7 @@ class DoctrineEntityEventListener implements EventSubscriber
         ];
     }
 
+    /** @param LifecycleEventArgs<EntityManagerInterface> $args */
     public function postPersist(LifecycleEventArgs $args): void
     {
         if ($this->isAuditLogEntity($args)) {
@@ -41,6 +43,7 @@ class DoctrineEntityEventListener implements EventSubscriber
         $this->log->log($event);
     }
 
+    /** @param LifecycleEventArgs<EntityManagerInterface> $args */
     public function postUpdate(LifecycleEventArgs $args): void
     {
         if ($this->isAuditLogEntity($args)) {
@@ -54,6 +57,7 @@ class DoctrineEntityEventListener implements EventSubscriber
         $this->log->log($event);
     }
 
+    /** @param LifecycleEventArgs<EntityManagerInterface> $args */
     public function preRemove(LifecycleEventArgs $args): void
     {
         if ($this->isAuditLogEntity($args)) {
@@ -67,10 +71,15 @@ class DoctrineEntityEventListener implements EventSubscriber
         $this->log->log($event);
     }
 
+    /**
+     * @param LifecycleEventArgs<EntityManagerInterface> $args
+     * @return array<string, mixed>
+     */
     protected function getChangeSet(LifecycleEventArgs $args): array
     {
         $entity = $args->getObject();
-        $unitOfWork = $args->getObjectManager()->getUnitOfWork();
+        $em = $args->getObjectManager();
+        $unitOfWork = $em->getUnitOfWork();
 
         return array_merge(
             $unitOfWork->getEntityChangeSet($entity),
@@ -78,6 +87,10 @@ class DoctrineEntityEventListener implements EventSubscriber
         );
     }
 
+    /**
+     * @param array<mixed> $collectionList
+     * @return array<string, mixed>
+     */
     protected function getCollectionChangeSet(mixed $entity, array $collectionList): array
     {
         $collectionChangeSet = [];
@@ -86,7 +99,12 @@ class DoctrineEntityEventListener implements EventSubscriber
                 continue;
             }
 
-            if (spl_object_hash($collection->getOwner()) === spl_object_hash($entity)) {
+            $owner = $collection->getOwner();
+            if ($owner === null) {
+                continue;
+            }
+
+            if (spl_object_hash($owner) === spl_object_hash($entity)) {
                 $collectionChangeSet[$collection->getMapping()['fieldName']] = [
                     'insertions' => $collection->getInsertDiff(),
                     'deletions' => $collection->getDeleteDiff(),
@@ -97,6 +115,7 @@ class DoctrineEntityEventListener implements EventSubscriber
         return $collectionChangeSet;
     }
 
+    /** @param LifecycleEventArgs<EntityManagerInterface> $args */
     protected function isAuditLogEntity(LifecycleEventArgs $args): bool
     {
         return get_class($args->getObject()) == $this->logEntityFqdn;

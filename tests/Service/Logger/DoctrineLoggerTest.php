@@ -4,7 +4,7 @@ namespace Tests\Pbweb\AuditBundle\Service\Logger;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
-use Mockery\Mock;
+use Mockery\MockInterface;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Event\LogAuditEvent;
 use Pbweb\AuditBundle\Service\Logger\AbstractDoctrineLogger;
@@ -12,10 +12,10 @@ use Pbweb\AuditBundle\Service\Logger\AbstractDoctrineLogger;
 class DoctrineLoggerTest extends MockeryTestCase
 {
     private AbstractDoctrineLogger $logger;
-    private Mock|EntityManagerInterface $entityManager;
+    private MockInterface&EntityManagerInterface $entityManager;
 
-    private Mock|LogAuditEvent $logEvent;
-    private Mock|AuditEventInterface $event;
+    private MockInterface&LogAuditEvent $logEvent;
+    private MockInterface&AuditEventInterface $event;
 
     protected function setUp(): void
     {
@@ -32,7 +32,7 @@ class DoctrineLoggerTest extends MockeryTestCase
     {
         $this->entityManager->shouldReceive('persist')
             ->once()
-            ->with(\Mockery::type(Mock::class));
+            ->with(\Mockery::type(\stdClass::class));
         $this->entityManager->shouldReceive('flush')
             ->once();
 

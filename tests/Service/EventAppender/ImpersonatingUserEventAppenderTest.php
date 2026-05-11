@@ -3,7 +3,7 @@
 namespace Tests\Pbweb\AuditBundle\Service\EventAppender;
 
 use Mockery\Adapter\Phpunit\MockeryTestCase;
-use Mockery\Mock;
+use Mockery\MockInterface;
 use Pbweb\AuditBundle\Event\AppendAuditEvent;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Service\EventAppender\ImpersonatingUserEventAppender;
@@ -15,13 +15,13 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class ImpersonatingUserEventAppenderTest extends MockeryTestCase
 {
     private ImpersonatingUserEventAppender $appender;
-    private Mock|TokenStorageInterface $tokenStorage;
-    private Mock|AuthorizationCheckerInterface $authorizationChecker;
+    private MockInterface&TokenStorageInterface $tokenStorage;
+    private MockInterface&AuthorizationCheckerInterface $authorizationChecker;
 
-    private Mock|AppendAuditEvent $appendEvent;
-    private Mock|AuditEventInterface $event;
-    private Mock|TokenInterface $token;
-    private Mock|TokenInterface $originalToken;
+    private MockInterface&AppendAuditEvent $appendEvent;
+    private MockInterface&AuditEventInterface $event;
+    private MockInterface&TokenInterface $token;
+    private MockInterface&TokenInterface $originalToken;
 
     protected function setUp(): void
     {

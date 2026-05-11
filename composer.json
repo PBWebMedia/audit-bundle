@@ -19,6 +19,11 @@
     "symfony/yaml": "^5.4|^6.0|^7.0"
   },
   "require-dev": {
+    "phpstan/extension-installer": "^1.4",
+    "phpstan/phpstan": "^2.1",
+    "phpstan/phpstan-doctrine": "^2.0",
+    "phpstan/phpstan-mockery": "^2.0",
+    "phpstan/phpstan-symfony": "^2.0",
     "phpunit/phpunit": "^12.5",
     "mockery/mockery": "^1.6",
     "doctrine/orm": "^2.9|^3.0",
@@ -37,7 +42,9 @@
     }
   },
   "config": {
-    "bin-dir": "bin"
+    "allow-plugins": {
+      "phpstan/extension-installer": true
+    }
   },
   "suggest": {
     "doctrine/orm": "For writing the audit log to the database",

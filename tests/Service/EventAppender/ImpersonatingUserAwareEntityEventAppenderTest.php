@@ -3,7 +3,7 @@
 namespace Tests\Pbweb\AuditBundle\Service\EventAppender;
 
 use Mockery\Adapter\Phpunit\MockeryTestCase;
-use Mockery\Mock;
+use Mockery\MockInterface;
 use Pbweb\AuditBundle\Event\AppendAuditEvent;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Event\EntityAuditEvent;
@@ -14,9 +14,9 @@ class ImpersonatingUserAwareEntityEventAppenderTest extends MockeryTestCase
 {
     private ImpersonatingUserAwareEntityEventAppender $appender;
 
-    private Mock|AppendAuditEvent $appendEvent;
-    private Mock|EntityAuditEvent $event;
-    private Mock|ImpersonatingUserAwareInterface $entity;
+    private MockInterface&AppendAuditEvent $appendEvent;
+    private MockInterface&EntityAuditEvent $event;
+    private MockInterface&ImpersonatingUserAwareInterface $entity;
 
     protected function setUp(): void
     {
@@ -43,7 +43,6 @@ class ImpersonatingUserAwareEntityEventAppenderTest extends MockeryTestCase
 
     public function testIgnoresWrongEvents(): void
     {
-        /** @var Mock|AuditEventInterface $event */
         $event = \Mockery::mock(AuditEventInterface::class);
         $this->appendEvent->shouldReceive('getEvent')->andReturn($event);
         $this->event->shouldReceive('setImpersonatingUser')->never();
@@ -53,7 +52,7 @@ class ImpersonatingUserAwareEntityEventAppenderTest extends MockeryTestCase
 
     public function testIgnoresWrongEntity(): void
     {
-        $entity = new Mock();
+        $entity = \Mockery::mock(\stdClass::class);
         $this->event->shouldReceive('getEntity')->andReturn($entity);
         $this->event->shouldReceive('setImpersonatingUser')->never();
 

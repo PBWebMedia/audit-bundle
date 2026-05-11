@@ -3,7 +3,7 @@
 namespace Tests\Pbweb\AuditBundle\Service\Logger;
 
 use Mockery\Adapter\Phpunit\MockeryTestCase;
-use Mockery\Mock;
+use Mockery\MockInterface;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Event\LogAuditEvent;
 use Pbweb\AuditBundle\Service\Logger\PsrLogger;
@@ -12,10 +12,10 @@ use Psr\Log\LoggerInterface;
 class PsrLoggerTest extends MockeryTestCase
 {
     private PsrLogger $logger;
-    private Mock|LoggerInterface $innerLogger;
+    private MockInterface&LoggerInterface $innerLogger;
 
-    private Mock|LogAuditEvent $logEvent;
-    private Mock|AuditEventInterface $event;
+    private MockInterface&LogAuditEvent $logEvent;
+    private MockInterface&AuditEventInterface $event;
 
     protected function setUp(): void
     {

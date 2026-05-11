@@ -3,7 +3,7 @@
 namespace Tests\Pbweb\AuditBundle\Service\EventAppender;
 
 use Mockery\Adapter\Phpunit\MockeryTestCase;
-use Mockery\Mock;
+use Mockery\MockInterface;
 use Pbweb\AuditBundle\Event\AppendAuditEvent;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\Service\EventAppender\IpEventAppender;
@@ -13,11 +13,11 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class IpEventAppenderTest extends MockeryTestCase
 {
     private IpEventAppender $appender;
-    private Mock|RequestStack $requestStack;
+    private MockInterface&RequestStack $requestStack;
 
-    private Mock|Request $request;
-    private Mock|AppendAuditEvent $appendEvent;
-    private Mock|AuditEventInterface $event;
+    private MockInterface&Request $request;
+    private MockInterface&AppendAuditEvent $appendEvent;
+    private MockInterface&AuditEventInterface $event;
 
     protected function setUp(): void
     {

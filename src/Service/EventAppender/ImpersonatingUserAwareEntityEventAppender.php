@@ -28,6 +28,9 @@ class ImpersonatingUserAwareEntityEventAppender implements EventSubscriberInterf
             return;
         }
 
-        $event->setImpersonatingUser($entity->getImpersonatingUser());
+        $impersonatingUser = $entity->getImpersonatingUser();
+        if ($impersonatingUser !== null) {
+            $event->setImpersonatingUser($impersonatingUser);
+        }
     }
 }

@@ -3,14 +3,13 @@
 namespace Tests\Pbweb\AuditBundle\Event;
 
 use Mockery\Adapter\Phpunit\MockeryTestCase;
-use Mockery\Mock;
 use Pbweb\AuditBundle\Event\EntityAuditEvent;
 
 class AuditEntityEventTest extends MockeryTestCase
 {
     public function testConstructor(): void
     {
-        $entity = new Mock();
+        $entity = \Mockery::mock(\stdClass::class);
         $event = new EntityAuditEvent('name', $entity, 'debug');
         $this->assertEquals('name', $event->getName());
         $this->assertEquals($entity, $event->getEntity());

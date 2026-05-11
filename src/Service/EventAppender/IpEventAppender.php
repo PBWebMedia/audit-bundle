@@ -33,6 +33,9 @@ class IpEventAppender implements EventSubscriberInterface
             return;
         }
 
-        $event->setIp($request->getClientIp());
+        $ip = $request->getClientIp();
+        if ($ip !== null) {
+            $event->setIp($ip);
+        }
     }
 }

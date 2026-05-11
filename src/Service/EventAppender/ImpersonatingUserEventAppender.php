@@ -41,7 +41,7 @@ class ImpersonatingUserEventAppender implements EventSubscriberInterface
 
         $token = $this->tokenStorage->getToken();
         if ($token instanceof SwitchUserToken) {
-            $event->setImpersonatingUser($token->getOriginalToken()->getUsername());
+            $event->setImpersonatingUser($token->getOriginalToken()->getUserIdentifier());
         }
     }
 }

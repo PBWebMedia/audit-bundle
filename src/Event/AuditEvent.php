@@ -14,9 +14,10 @@ class AuditEvent extends Event implements AuditEventInterface
     protected ?string $user = null;
     protected ?string $impersonatingUser = null;
     protected ?string $description = null;
+    /** @var array<string, mixed>|null */
     protected ?array $changeSet = null;
 
-    public function __construct(string $name, $level = LogLevel::INFO)
+    public function __construct(string $name, string $level = LogLevel::INFO)
     {
         $this->time = new \DateTime();
         $this->name = $name;
@@ -78,11 +79,13 @@ class AuditEvent extends Event implements AuditEventInterface
         $this->description = $description;
     }
 
+    /** @return array<string, mixed>|null */
     public function getChangeSet(): ?array
     {
         return $this->changeSet;
     }
 
+    /** @param array<string, mixed> $changeSet */
     public function setChangeSet(array $changeSet): void
     {
         $this->changeSet = $changeSet;

@@ -32,6 +32,7 @@ class AuditLogEntry
     #[ORM\Column(type: 'text', nullable: true)]
     protected ?string $description = null;
 
+    /** @var array<string, mixed>|null */
     #[ORM\Column(type: 'json', nullable: true)]
     protected ?array $changeSet = null;
 
@@ -47,7 +48,7 @@ class AuditLogEntry
         return $this->id;
     }
 
-    public function getTime(): \DateTime
+    public function getTime(): ?\DateTime
     {
         return $this->time;
     }
@@ -57,7 +58,7 @@ class AuditLogEntry
         $this->time = $time;
     }
 
-    public function getLevel(): string
+    public function getLevel(): ?string
     {
         return $this->level;
     }
@@ -67,7 +68,7 @@ class AuditLogEntry
         $this->level = $level;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -117,11 +118,13 @@ class AuditLogEntry
         $this->description = $description;
     }
 
+    /** @return array<string, mixed>|null */
     public function getChangeSet(): ?array
     {
         return $this->changeSet;
     }
 
+    /** @param array<string, mixed> $changeSet */
     public function setChangeSet(array $changeSet): void
     {
         $this->changeSet = $changeSet;

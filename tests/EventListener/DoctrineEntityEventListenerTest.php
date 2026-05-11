@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\UnitOfWork;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
-use Mockery\Mock;
+use Mockery\MockInterface;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
 use Pbweb\AuditBundle\EventListener\DoctrineEntityEventListener;
 use Pbweb\AuditBundle\Service\AuditLogInterface;
@@ -14,12 +14,13 @@ use Pbweb\AuditBundle\Service\AuditLogInterface;
 class DoctrineEntityEventListenerTest extends MockeryTestCase
 {
     private DoctrineEntityEventListener $listener;
-    private Mock|AuditLogInterface $log;
+    private MockInterface&AuditLogInterface $log;
 
-    private Mock|LifecycleEventArgs $args;
-    private Mock|\stdClass $entity;
-    private Mock|EntityManagerInterface $entityManager;
-    private Mock|UnitOfWork $unitOfWork;
+    /** @var MockInterface&LifecycleEventArgs<EntityManagerInterface> */
+    private MockInterface&LifecycleEventArgs $args;
+    private MockInterface&\stdClass $entity;
+    private MockInterface&EntityManagerInterface $entityManager;
+    private MockInterface&UnitOfWork $unitOfWork;
 
     protected function setUp(): void
     {
@@ -45,7 +46,7 @@ class DoctrineEntityEventListenerTest extends MockeryTestCase
         $this->log->shouldReceive('log')
             ->once()
             ->with(\Mockery::on(function (AuditEventInterface $event) {
-                $this->assertStringContainsString('insert', $event->getDescription());
+                $this->assertStringContainsString('insert', (string) $event->getDescription());
                 $this->assertEquals(['foo' => 'bar'], $event->getChangeSet());
 
                 return true;
@@ -59,7 +60,7 @@ class DoctrineEntityEventListenerTest extends MockeryTestCase
         $this->log->shouldReceive('log')
             ->once()
             ->with(\Mockery::on(function (AuditEventInterface $event) {
-                $this->assertStringContainsString('update', $event->getDescription());
+                $this->assertStringContainsString('update', (string) $event->getDescription());
                 $this->assertEquals(['foo' => 'bar'], $event->getChangeSet());
 
                 return true;
@@ -73,7 +74,7 @@ class DoctrineEntityEventListenerTest extends MockeryTestCase
         $this->log->shouldReceive('log')
             ->once()
             ->with(\Mockery::on(function (AuditEventInterface $event) {
-                $this->assertStringContainsString('remove', $event->getDescription());
+                $this->assertStringContainsString('remove', (string) $event->getDescription());
                 $this->assertEquals(['foo' => 'bar'], $event->getChangeSet());
 
                 return true;

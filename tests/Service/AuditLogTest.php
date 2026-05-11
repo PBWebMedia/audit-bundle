@@ -4,7 +4,7 @@ namespace Tests\Pbweb\AuditBundle\Service;
 
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Mockery\Matcher\IsEqual;
-use Mockery\Mock;
+use Mockery\MockInterface;
 use Pbweb\AuditBundle\Event\AppendAuditEvent;
 use Pbweb\AuditBundle\Event\AuditEvent;
 use Pbweb\AuditBundle\Event\AuditEventInterface;
@@ -15,9 +15,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class AuditLogTest extends MockeryTestCase
 {
     private AuditLog $log;
-    private Mock|EventDispatcherInterface $dispatcher;
+    private MockInterface&EventDispatcherInterface $dispatcher;
 
-    private Mock|AuditEventInterface $event;
+    private MockInterface&AuditEventInterface $event;
 
     protected function setUp(): void
     {

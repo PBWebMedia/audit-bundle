@@ -15,6 +15,8 @@ interface AuditEventInterface
     public function setUser(string $user): void;
     public function getImpersonatingUser(): ?string;
     public function setImpersonatingUser(string $impersonatingUser): void;
+    /** @return array<string, mixed>|null */
     public function getChangeSet(): ?array;
+    /** @param array<string, mixed> $changeSet */
     public function setChangeSet(array $changeSet): void;
 }
