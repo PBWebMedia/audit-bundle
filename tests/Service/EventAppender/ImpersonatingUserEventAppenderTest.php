@@ -39,7 +39,7 @@ class ImpersonatingUserEventAppenderTest extends MockeryTestCase
         $this->tokenStorage->shouldReceive('getToken')->andReturn($this->token)->byDefault();
         $this->authorizationChecker->shouldReceive('isGranted')->andReturn(true)->byDefault();
         $this->token->shouldReceive('getOriginalToken')->andReturn($this->originalToken)->byDefault();
-        $this->originalToken->shouldReceive('getUsername')->andReturn('foo')->byDefault();
+        $this->originalToken->shouldReceive('getUserIdentifier')->andReturn('foo')->byDefault();
     }
 
     public function testSetsImpersonatingUser(): void
